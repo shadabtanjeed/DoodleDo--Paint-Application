@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class Main extends Application {
     public static void main(String[] args) {
@@ -19,7 +20,7 @@ public class Main extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
         stage.setTitle("DoodleDo");
         stage.setMaximized(true);
-        Image icon = new Image(getClass().getResourceAsStream("Logo.png"));
+        Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("Logo.png")));
         stage.getIcons().add(icon);
 
         stage.setScene(scene);
