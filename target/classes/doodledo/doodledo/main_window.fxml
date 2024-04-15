@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="doodledo.doodledo.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doodledo.doodledo.WindowController">
+    <children>
+        <ToolBar layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="671.0">
+            <items>
+                <Button fx:id="brushTool" mnemonicParsing="false" onAction="#brushSelected" prefHeight="26.0" prefWidth="71.0" text="Brush" />
+                <Button fx:id="eraserTool" mnemonicParsing="false" text="Eraser" />
+                <ColorPicker fx:id="colorPalette" prefHeight="26.0" prefWidth="114.0" />
+                <Slider fx:id="brushWidth" blockIncrement="1.0" majorTickUnit="3.0" max="15.0" min="1.0" minorTickCount="1" prefHeight="16.0" prefWidth="211.0" value="5.0" />
+                <Button mnemonicParsing="false" text="Button X" />
+            </items>
+        </ToolBar>
+        <Canvas fx:id="canvas" height="672.0" layoutY="50.0" width="1080.0" />
+    </children>
+</AnchorPane>
