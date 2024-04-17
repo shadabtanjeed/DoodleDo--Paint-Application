@@ -24,7 +24,8 @@ import javafx.stage.FileChooser;
 
 public class WindowController implements Initializable {
 
-    public static boolean isSaved = true;
+    //public static boolean isSaved = true;
+    public static boolean isSaved = false;
     // Static fields to hold references to instance variables
     private static Slider staticBrushWidth;
     private static Canvas staticCanvas;

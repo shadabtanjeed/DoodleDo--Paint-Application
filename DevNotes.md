@@ -1,3 +1,8 @@
+## Big Issue
+
+The FXML file does not sync up when merging branches. If you ever need to change the layout, make change in main branch
+first, then notify other members to pull the changes.
+
 # Notes
 
 ## General Notice:
