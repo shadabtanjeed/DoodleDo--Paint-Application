@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
 import javafx.fxml.Initializable;
@@ -18,6 +20,8 @@ import java.net.URL;
 public class WindowController implements Initializable {
 
     boolean eraserSelected = false;
+    boolean isSaved = false;
+
     @FXML
     private Canvas canvas;
     @FXML
@@ -68,5 +72,22 @@ public class WindowController implements Initializable {
         brushSelected = false;
         eraserSelected = true;
         colorPalette.setValue(Color.WHITE);
+    }
+
+    boolean closeConfirmation() {
+        if (!isSaved) {
+
+            //create a confirmation box
+            Alert close_alert = new Alert(Alert.AlertType.CONFIRMATION);
+            close_alert.setHeaderText("Save Confirmation");
+            close_alert.setContentText("Do you want save your progress?");
+
+            //create buttons
+            ButtonType save_alert_button = new ButtonType("Save");
+            ButtonType dont_save_alert_button = new ButtonType("Don't Save");
+            ButtonType cancel_alert_button = new ButtonType("Cancel");
+        }
+
+        return false;
     }
 }
