@@ -15,8 +15,9 @@ import java.util.ResourceBundle;
 import java.net.URL;
 
 
-public class WindowController implements Initializable{
+public class WindowController implements Initializable {
 
+    boolean eraserSelected = false;
     @FXML
     private Canvas canvas;
     @FXML
@@ -27,7 +28,6 @@ public class WindowController implements Initializable{
     private boolean brushSelected = true; // for testing. should be false by default...
     @FXML
     private Slider brushWidth;
-
     private double lastX, lastY; // store last position where mouse were dragged/pressed
 
     @Override
@@ -61,5 +61,12 @@ public class WindowController implements Initializable{
     @FXML
     public void brushSelected(ActionEvent e) {
         brushSelected = true;
+    }
+
+    @FXML
+    public void eraserSelected(ActionEvent e) {
+        brushSelected = false;
+        eraserSelected = true;
+        colorPalette.setValue(Color.WHITE);
     }
 }

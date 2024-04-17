@@ -12,7 +12,7 @@
         <ToolBar layoutX="14.0" layoutY="14.0" prefHeight="26.0" prefWidth="671.0">
             <items>
                 <Button fx:id="brushTool" mnemonicParsing="false" onAction="#brushSelected" prefHeight="26.0" prefWidth="71.0" text="Brush" />
-                <Button fx:id="eraserTool" mnemonicParsing="false" text="Eraser" />
+                <Button fx:id="eraserTool" mnemonicParsing="false" onAction="#eraserSelected" text="Eraser" />
                 <ColorPicker fx:id="colorPalette" prefHeight="26.0" prefWidth="114.0" />
                 <Slider fx:id="brushWidth" blockIncrement="1.0" majorTickUnit="3.0" max="20.0" min="1.0" minorTickCount="1" prefHeight="16.0" prefWidth="211.0" value="5.0" />
                 <Button mnemonicParsing="false" text="Button X" />
