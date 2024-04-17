@@ -67,7 +67,7 @@ public class WindowController implements Initializable {
                 System.exit(0);
                 return true;
             } else if (result.get() == cancel_alert_button) {
-                return false;
+                return true;
             }
         }
         return false;
