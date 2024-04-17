@@ -145,4 +145,9 @@ public class WindowController implements Initializable {
         // save the canvas
         SaveImage();
     }
+
+    @FXML
+    public void clearCanvas(ActionEvent e) {
+        brush.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    }
 }
