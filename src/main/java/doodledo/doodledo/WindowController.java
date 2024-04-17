@@ -168,9 +168,9 @@ public class WindowController implements Initializable {
     public void undoAction(ActionEvent e) {
         // undo the last action
         if(!undoStack.isEmpty()) {
-            WritableImage curentSnapshot = new WritableImage((int) canvas.getWidth(), (int) canvas.getHeight());
-            canvas.snapshot(null, curentSnapshot);
-            redoStack.push(curentSnapshot);
+            WritableImage currentSnapshot = new WritableImage((int) canvas.getWidth(), (int) canvas.getHeight());
+            canvas.snapshot(null, currentSnapshot);
+            redoStack.push(currentSnapshot);
 
             //restore previous state from undo stack
             WritableImage previousSnapshot = undoStack.pop();
