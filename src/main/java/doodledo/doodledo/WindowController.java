@@ -41,7 +41,7 @@ public class WindowController implements Initializable {
             brush.moveTo(e.getX(), e.getY());
             brush.setLineWidth(brushWidth.getValue());
             brush.setStroke(colorPalette.getValue());
-            brush.setLineCap(StrokeLineCap.ROUND);
+            brush.setLineCap(StrokeLineCap.BUTT);
             lastX = e.getX();
             lastY = e.getY();
         });
