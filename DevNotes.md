@@ -1,15 +1,21 @@
 # Notes
----
 
 ## General Notice:
----
+
 1. If you are doing any changes, please update the md file. it will be easier to track.
 1. Before starting any coding, search this DevNotes to see if anyone is already working on it.
+1. Dont work on *main*. Work on own branch and merge when completed.
+1. __Repo undergone changes__. Please make sure your version is up to date.
+
+---
+---
 
 ## Monke
----
+
+### Done
+1. Deleted old *main* branch
+1. Made old *devel62* as current main
+
 ### ToDo
-1. **Delete current *main* branch**
-1. **Make current *devel62* as main**
 
 
