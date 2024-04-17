@@ -6,6 +6,7 @@
 1. Before starting any coding, search this DevNotes to see if anyone is already working on it.
 1. Dont work on *main*. Work on own branch and merge when completed.
 1. __Repo undergone changes__. Please make sure your version is up to date.
+1. Try to use as much comments as possible and follow javadoc conventions.
 
 ---
 ---
@@ -13,9 +14,14 @@
 ## Monke
 
 ### Done
+
 1. Deleted old *main* branch
 1. Made old *devel62* as current main
 
 ### ToDo
+
+1. Export Options
+2. Eraser Tool
+3. Undo/Redo
 
 
