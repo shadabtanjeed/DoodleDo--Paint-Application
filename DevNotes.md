@@ -13,9 +13,6 @@
 
 ## Monke
 
-### Doing
-1. Fix Contribution
-
 
 ## Shadab
 
