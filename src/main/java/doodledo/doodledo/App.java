@@ -30,7 +30,7 @@ public class App extends Application {
         stage.show();
 
         stage.setOnCloseRequest((WindowEvent event) -> {
-            if (closeConfirmation() == true) {
+            if (closeConfirmation()) {
                 event.consume();
             }
         });

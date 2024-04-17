@@ -81,7 +81,6 @@ public class WindowController implements Initializable {
                 new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG"),
                 new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG"));
 
-        // This try-catch saves the image
         File savefile = ImageSaver.showSaveDialog(null);
         if (savefile != null) {
             try {

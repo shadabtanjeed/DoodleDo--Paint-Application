@@ -13,12 +13,10 @@
 
 ## Monke
 
-
 ## Shadab
 
 ### ToDo
 
-1. Export Options
 2. Eraser Tool
 3. Undo/Redo
 
