@@ -13,47 +13,37 @@ import javafx.scene.paint.Color;
 
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import java.net.URL;
-
-import javafx.embed.swing.SwingFXUtils;
-
-
-import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
-import javafx.scene.image.WritableImage;
-
+import javafx.embed.swing.SwingFXUtils;
+import javafx.stage.FileChooser;
 
 public class WindowController implements Initializable {
 
-    static boolean eraserSelected = false;
-    static boolean isSaved = true;
-
+    public static boolean isSaved = true;
+    // Static fields to hold references to instance variables
+    private static Slider staticBrushWidth;
+    private static Canvas staticCanvas;
+    // Instance variables
     @FXML
-    private Button saveButton;
-
+    private Slider brushWidth;
     @FXML
     private Canvas canvas;
     @FXML
+    private Button saveButton;
+    @FXML
     private ColorPicker colorPalette;
     @FXML
-    private GraphicsContext brush; // Renamed from brush to avoid conflict
-    private double brushSize;
-    private boolean brushSelected = true; // for testing. should be false by default...
-    @FXML
-    private Slider brushWidth;
-    private double lastX, lastY; // store last position where mouse were dragged/pressed
-    private WritableImage writableImage;
-    private int widthOfCanvas = 1920; // replace with actual width
-    private int heightOfCanvas = 1080; // replace with actual height
-    private File file = new File("output.png"); // replace with actual file path
+    private GraphicsContext brush;
+    private boolean eraserSelected = false;
+    private double lastX, lastY;
 
     public static boolean closeConfirmation() {
         if (!isSaved) {
-
             //create a confirmation box
             Alert close_alert = new Alert(Alert.AlertType.CONFIRMATION);
             close_alert.setHeaderText("Save Confirmation");
@@ -67,14 +57,51 @@ public class WindowController implements Initializable {
             close_alert.getButtonTypes().setAll(save_alert_button, dont_save_alert_button, cancel_alert_button);
 
             Optional<ButtonType> result = close_alert.showAndWait();
-        }
 
+            if (result.get() == save_alert_button) {
+                //save the canvas
+                SaveImage();
+                return true;
+            } else if (result.get() == dont_save_alert_button) {
+                System.exit(0);
+                return true;
+            } else if (result.get() == cancel_alert_button) {
+                return false;
+            }
+        }
         return false;
-//      return true;
+    }
+
+    private static void SaveImage() {
+        FileChooser ImageSaver = new FileChooser();
+        ImageSaver.setTitle("Save Image File");
+
+        //image data types
+        ImageSaver.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG"),
+                new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG"));
+
+        // This try-catch saves the image
+        File savefile = ImageSaver.showSaveDialog(null);
+        if (savefile != null) {
+            try {
+                WritableImage writableImage = new WritableImage((int) staticCanvas.getWidth(), (int) staticCanvas.getHeight());
+                staticCanvas.snapshot(null, writableImage); //make a snapshot and store it in writableImage
+                RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null); //convert
+                ImageIO.write(renderedImage, "png", savefile); //saves the file
+                isSaved = true;
+            } catch (IOException ex) {
+                System.err.println("Unable to Save");
+            }
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Initialization code...
+        staticBrushWidth = brushWidth;
+        staticCanvas = canvas;
+
         brush = canvas.getGraphicsContext2D();
         colorPalette.setValue(Color.BLUE); // for testing
         brushWidth.setValue(5); // for testing
@@ -82,7 +109,7 @@ public class WindowController implements Initializable {
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
             brush.beginPath();
             brush.moveTo(e.getX(), e.getY());
-            brush.setLineWidth(brushWidth.getValue());
+            brush.setLineWidth(staticBrushWidth.getValue());
             brush.setStroke(colorPalette.getValue());
             brush.setLineCap(StrokeLineCap.BUTT);
             lastX = e.getX();
@@ -103,12 +130,12 @@ public class WindowController implements Initializable {
 
     @FXML
     public void brushSelected(ActionEvent e) {
-        brushSelected = true;
+        eraserSelected = false;
+        colorPalette.setValue(Color.BLACK);
     }
 
     @FXML
     public void eraserSelected(ActionEvent e) {
-        brushSelected = false;
         eraserSelected = true;
         colorPalette.setValue(Color.WHITE);
     }
@@ -117,23 +144,5 @@ public class WindowController implements Initializable {
     public void saveSelected(ActionEvent e) {
         // save the canvas
         SaveImage();
-        System.exit(0);
-
-
     }
-
-    private void saveImage() {
-        WritableImage writableImage = new WritableImage((int) canvas.getWidth(), (int) canvas.getHeight());
-        canvas.snapshot(null, writableImage);
-
-        File outputFile = new File("output.png");
-        try {
-            ImageIO.write(SwingFXUtils.fromFXImage(writableImage, null), "png", outputFile);
-            isSaved = true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
 }

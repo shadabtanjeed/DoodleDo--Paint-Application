@@ -11,7 +11,7 @@
     <children>
         <ToolBar layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="1049.0">
             <items>
-            <Button fx:id="save_button" mnemonicParsing="false" text="Save" />
+            <Button fx:id="save_button" mnemonicParsing="false" onAction="#saveSelected" text="Save" />
                 <Button fx:id="brushTool" mnemonicParsing="false" onAction="#brushSelected" prefHeight="26.0" prefWidth="71.0" text="Brush" />
                 <Button fx:id="eraserTool" mnemonicParsing="false" onAction="#eraserSelected" text="Eraser" />
                 <ColorPicker fx:id="colorPalette" prefHeight="26.0" prefWidth="114.0" />
