@@ -17,7 +17,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("main_window.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        Scene scene = new Scene(fxmlLoader.load(), 1080, 720);
         stage.setTitle("DoodleDo");
         stage.setMaximized(true);
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("Logo.png")));

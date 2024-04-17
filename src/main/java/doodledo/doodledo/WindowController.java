@@ -7,6 +7,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.paint.Color;
+
 import java.util.ResourceBundle;
 import java.net.URL;
 
@@ -20,25 +24,37 @@ public class WindowController implements Initializable{
     @FXML
     private GraphicsContext brush; // Renamed from brush to avoid conflict
     private double brushSize;
-    private boolean brushSelected = false;
+    private boolean brushSelected = true; // for testing. should be false by default...
     @FXML
     private Slider brushWidth;
+
+    private double lastX, lastY; // store last position where mouse were dragged/pressed
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         brush = canvas.getGraphicsContext2D();
+        colorPalette.setValue(Color.BLUE); // for testing
+        brushWidth.setValue(5); // for testing
 
-        canvas.setOnMouseDragged(e -> {
-            brushSize = brushWidth.getValue();
+        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+            brush.beginPath();
+            brush.moveTo(e.getX(), e.getY());
+            brush.setLineWidth(brushWidth.getValue());
+            brush.setStroke(colorPalette.getValue());
+            brush.setLineCap(StrokeLineCap.ROUND);
+            lastX = e.getX();
+            lastY = e.getY();
+        });
 
-            // get co-ordinates of the clicked position
-            double x = e.getX() - (brushSize / 2);
-            double y = e.getY() - (brushSize / 2);
+        canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, (e) -> {
+            brush.lineTo(e.getX(), e.getY()); // draw line from last known co-ordinate to current co-ordinate
+            brush.stroke();
+            lastX = e.getX();
+            lastY = e.getY();
+        });
 
-            if (brushSelected) {
-                brush.setFill(colorPalette.getValue());
-                brush.fillRoundRect(x, y, brushSize, brushSize, brushSize / 2, brushSize / 2); // Adjust the width and height
-            }
+        canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, (e) -> {
+            brush.closePath();
         });
     }
 

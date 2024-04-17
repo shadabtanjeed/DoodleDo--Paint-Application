@@ -18,6 +18,6 @@
                 <Button mnemonicParsing="false" text="Button X" />
             </items>
         </ToolBar>
-        <Canvas fx:id="canvas" height="672.0" layoutY="50.0" width="1080.0" />
+        <Canvas fx:id="canvas" height="1080.0" layoutY="50.0" width="1920.0" />
     </children>
 </AnchorPane>
