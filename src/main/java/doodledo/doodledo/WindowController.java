@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Stack;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.stage.FileChooser;
@@ -42,6 +43,9 @@ public class WindowController implements Initializable {
     private GraphicsContext brush;
     private boolean eraserSelected = false;
     private double lastX, lastY;
+
+    private Stack<WritableImage> undoStack = new Stack<>();
+    private Stack<WritableImage> redoStack = new Stack<>();
 
     public static boolean closeConfirmation() {
         if (!isSaved) {
@@ -96,6 +100,13 @@ public class WindowController implements Initializable {
         }
     }
 
+    public void saveCurrentState() {
+        redoStack.clear();
+        WritableImage snapshot = new WritableImage((int) canvas.getWidth(), (int) canvas.getHeight());
+        canvas.snapshot(null, snapshot);
+        undoStack.push(snapshot);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Initialization code...
@@ -105,8 +116,10 @@ public class WindowController implements Initializable {
         brush = canvas.getGraphicsContext2D();
         colorPalette.setValue(Color.BLUE); // for testing
         brushWidth.setValue(5); // for testing
+        saveCurrentState();
 
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+            saveCurrentState();
             brush.beginPath();
             brush.moveTo(e.getX(), e.getY());
             brush.setLineWidth(staticBrushWidth.getValue());
@@ -150,4 +163,35 @@ public class WindowController implements Initializable {
     public void clearCanvas(ActionEvent e) {
         brush.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
+
+    @FXML
+    public void undoAction(ActionEvent e) {
+        // undo the last action
+        if(!undoStack.isEmpty()) {
+            WritableImage curentSnapshot = new WritableImage((int) canvas.getWidth(), (int) canvas.getHeight());
+            canvas.snapshot(null, curentSnapshot);
+            redoStack.push(curentSnapshot);
+
+            //restore previous state from undo stack
+            WritableImage previousSnapshot = undoStack.pop();
+            brush.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            brush.drawImage(previousSnapshot, 0, 0);
+        }
+    }
+
+    @FXML
+    public void redoAction(ActionEvent e) {
+        if(!redoStack.isEmpty()) {
+            WritableImage curentSnapshot = new WritableImage((int) canvas.getWidth(), (int) canvas.getHeight());
+            canvas.snapshot(null, curentSnapshot);
+            undoStack.push(curentSnapshot);
+
+            //restore previous state from redo stack
+            WritableImage nextSnapshot = redoStack.pop();
+            brush.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            brush.drawImage(nextSnapshot, 0, 0);
+        }
+    }
+
+
 }

@@ -17,6 +17,8 @@
                 <ColorPicker fx:id="colorPalette" prefHeight="26.0" prefWidth="114.0" />
                 <Slider fx:id="brushWidth" blockIncrement="1.0" majorTickUnit="3.0" max="20.0" min="1.0" minorTickCount="1" prefHeight="16.0" prefWidth="211.0" value="5.0" />
                 <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearCanvas" text="Clear" />
+            <Button fx:id="undoButton" layoutX="515.0" layoutY="11.0" mnemonicParsing="false" onAction="#undoAction" text="Undo" />
+            <Button fx:id="clearButton11" layoutX="562.0" layoutY="11.0" mnemonicParsing="false" onAction="#redoAction" text="Redo" />
             </items>
         </ToolBar>
         <Canvas fx:id="canvas" height="1080.0" layoutY="50.0" width="1920.0" />
