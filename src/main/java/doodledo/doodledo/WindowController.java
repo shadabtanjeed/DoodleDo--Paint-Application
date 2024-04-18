@@ -43,6 +43,8 @@ public class WindowController implements Initializable {
     private boolean eraserSelected = false;
     private double lastX, lastY;
 
+    //return true indicates that the program termination is way to go
+    //return false refrains from termination
     public static boolean closeConfirmation() {
         if (!isSaved) {
             //create a confirmation box
