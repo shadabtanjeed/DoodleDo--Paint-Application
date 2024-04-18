@@ -19,7 +19,13 @@ first, then notify other members to pull the changes.
 1. Shapes
 1. Text
 1. Button pressed `Ctrl+Draw`
-1. 
+1. Button icons, beautification (css), hovering name effect
+1. Keyboard shortcuts (Save, Erase, Undo - Redo, color picker)
+1. Different brush tools
+1. Change background color
+1. shape color fill
+1. Export to pdf
+1. Handle eraser color variable in background
 
 ---
 ---
