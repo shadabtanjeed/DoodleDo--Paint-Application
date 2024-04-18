@@ -1,3 +1,24 @@
+package doodledo.doodledo;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.*;
+import javafx.fxml.Initializable;
+import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.paint.Color;
+
+import javax.imageio.ImageIO;
+import java.awt.image.RenderedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
 import javafx.embed.swing.SwingFXUtils;
 import javafx.stage.FileChooser;
 
@@ -9,8 +30,18 @@ public class WindowController implements Initializable {
     private static Slider staticBrushWidth;
     private static Canvas staticCanvas;
     // Instance variables
-
+    @FXML
+    private Slider brushWidth;
+    @FXML
+    private Canvas canvas;
+    @FXML
+    private Button saveButton;
+    @FXML
+    private ColorPicker colorPalette;
+    @FXML
+    private GraphicsContext brush;
     private boolean eraserSelected = false;
+    private double lastX, lastY;
 
     //return true indicates that the program termination is way to go
     //return false refrains from termination
@@ -75,9 +106,42 @@ public class WindowController implements Initializable {
         }
     }
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        // Initialization code...
+        staticBrushWidth = brushWidth;
+        staticCanvas = canvas;
+
+        brush = canvas.getGraphicsContext2D();
+        colorPalette.setValue(Color.BLUE); // for testing
+        brushWidth.setValue(5); // for testing
+
+        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+            brush.beginPath();
+            brush.moveTo(e.getX(), e.getY());
+            brush.setLineWidth(staticBrushWidth.getValue());
+            brush.setStroke(colorPalette.getValue());
+            brush.setLineCap(StrokeLineCap.BUTT);
+            lastX = e.getX();
+            lastY = e.getY();
+        });
+
+        canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, (e) -> {
+            brush.lineTo(e.getX(), e.getY()); // draw line from last known co-ordinate to current co-ordinate
+            brush.stroke();
+            lastX = e.getX();
+            lastY = e.getY();
+        });
+
+        canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, (e) -> {
+            brush.closePath();
+        });
+    }
+
     @FXML
     public void brushSelected(ActionEvent e) {
         eraserSelected = false;
+        colorPalette.setValue(Color.BLACK);
     }
 
     @FXML
