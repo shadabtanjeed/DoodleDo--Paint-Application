@@ -26,7 +26,7 @@ import javafx.stage.FileChooser;
 public class WindowController implements Initializable {
 
     //public static boolean isSaved = true;
-    public static boolean isSaved = false;
+    public static boolean isSaved = true;
     // Static fields to hold references to instance variables
     private static Slider staticBrushWidth;
     private static Canvas staticCanvas;
@@ -135,9 +135,11 @@ public class WindowController implements Initializable {
             lastX = e.getX();
             lastY = e.getY();
         });
+        
 
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, (e) -> {
             brush.closePath();
+            isSaved = false;
         });
     }
 
@@ -145,6 +147,7 @@ public class WindowController implements Initializable {
     public void brushSelected(ActionEvent e) {
         eraserSelected = false;
         colorPalette.setValue(Color.BLACK);
+
     }
 
     @FXML
@@ -162,12 +165,13 @@ public class WindowController implements Initializable {
     @FXML
     public void clearCanvas(ActionEvent e) {
         brush.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        isSaved = false;
     }
 
     @FXML
     public void undoAction(ActionEvent e) {
         // undo the last action
-        if(!undoStack.isEmpty()) {
+        if (!undoStack.isEmpty()) {
             WritableImage currentSnapshot = new WritableImage((int) canvas.getWidth(), (int) canvas.getHeight());
             canvas.snapshot(null, currentSnapshot);
             redoStack.push(currentSnapshot);
@@ -176,12 +180,14 @@ public class WindowController implements Initializable {
             WritableImage previousSnapshot = undoStack.pop();
             brush.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             brush.drawImage(previousSnapshot, 0, 0);
+
+            isSaved = false;
         }
     }
 
     @FXML
     public void redoAction(ActionEvent e) {
-        if(!redoStack.isEmpty()) {
+        if (!redoStack.isEmpty()) {
             WritableImage curentSnapshot = new WritableImage((int) canvas.getWidth(), (int) canvas.getHeight());
             canvas.snapshot(null, curentSnapshot);
             undoStack.push(curentSnapshot);
@@ -190,6 +196,8 @@ public class WindowController implements Initializable {
             WritableImage nextSnapshot = redoStack.pop();
             brush.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             brush.drawImage(nextSnapshot, 0, 0);
+
+            isSaved = false;
         }
     }
 
