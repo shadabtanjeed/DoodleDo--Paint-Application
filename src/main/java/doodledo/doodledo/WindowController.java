@@ -50,13 +50,15 @@ public class WindowController implements Initializable {
             close_alert.setHeaderText("Save Confirmation");
             close_alert.setContentText("Do you want save your progress?");
 
-            //create buttons
+            //create buttons for confirmation box
             ButtonType save_alert_button = new ButtonType("Save");
             ButtonType dont_save_alert_button = new ButtonType("Don't Save");
             ButtonType cancel_alert_button = new ButtonType("Cancel");
 
+            //add buttons to the confirmation box
             close_alert.getButtonTypes().setAll(save_alert_button, dont_save_alert_button, cancel_alert_button);
 
+            //show the confirmation box
             Optional<ButtonType> result = close_alert.showAndWait();
 
             if (result.get() == save_alert_button) {
@@ -64,6 +66,7 @@ public class WindowController implements Initializable {
                 SaveImage();
                 return true;
             } else if (result.get() == dont_save_alert_button) {
+                //exits the program
                 System.exit(0);
                 return true;
             } else if (result.get() == cancel_alert_button) {
@@ -82,13 +85,18 @@ public class WindowController implements Initializable {
                 new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG"),
                 new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG"));
 
+        //show the file save location dialogue box
         File savefile = ImageSaver.showSaveDialog(null);
         if (savefile != null) {
             try {
+                //writeable image format created as the canvas size
                 WritableImage writableImage = new WritableImage((int) staticCanvas.getWidth(), (int) staticCanvas.getHeight());
-                staticCanvas.snapshot(null, writableImage); //make a snapshot and store it in writableImage
-                RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null); //convert
-                ImageIO.write(renderedImage, "png", savefile); //saves the file
+                //snapshot of the canvas stored into writable image
+                staticCanvas.snapshot(null, writableImage);
+                //writeable image converted to regular image format
+                RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
+
+                ImageIO.write(renderedImage, "png", savefile);
                 isSaved = true;
             } catch (IOException ex) {
                 System.err.println("Unable to Save");
