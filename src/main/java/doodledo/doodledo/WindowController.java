@@ -30,6 +30,7 @@ public class WindowController implements Initializable {
     // Static fields to hold references to instance variables
     private static Slider staticBrushWidth;
     private static Canvas staticCanvas;
+    Color selectedColor;
     // Instance variables
     @FXML
     private Slider brushWidth;
@@ -156,12 +157,15 @@ public class WindowController implements Initializable {
     @FXML
     public void brushSelected(ActionEvent e) {
         eraserSelected = false;
-        colorPalette.setValue(Color.BLACK);
+//        colorPalette.setValue(Color.BLACK);
+        colorPalette.setValue(selectedColor);
 
     }
 
     @FXML
     public void eraserSelected(ActionEvent e) {
+
+        selectedColor = colorPalette.getValue();
         eraserSelected = true;
         colorPalette.setValue(Color.WHITE);
     }
