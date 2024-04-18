@@ -7,11 +7,19 @@ first, then notify other members to pull the changes.
 
 ## General Notice:
 
-1. If you are doing any changes, please update the md file. it will be easier to track.
+1. If you are doing any changes, please update the md file. __Mention the feature under your name__
 1. Before starting any coding, search this DevNotes to see if anyone is already working on it.
-1. Dont work on *main*. Work on own branch and merge when completed.
-1. __Repo undergone changes__. Please make sure your version is up to date.
+1. Dont work on *main*. Work on own branch and merge when completed. After work completed, delete unnecessary branches.
 1. Try to use as much comments as possible and follow javadoc conventions.
+
+## Genereal ToDo
+
+1. Rectangular Area Erase
+1. Import Image
+1. Shapes
+1. Text
+1. Button pressed `Ctrl+Draw`
+1. 
 
 ---
 ---
@@ -20,9 +28,6 @@ first, then notify other members to pull the changes.
 
 ## Shadab
 
-### ToDo
-
-2. Eraser Tool
-3. Undo/Redo
+## Rupom
 
 
