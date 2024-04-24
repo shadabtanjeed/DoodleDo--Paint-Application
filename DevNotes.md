@@ -14,6 +14,7 @@ first, then notify other members to pull the changes.
 
 ## Genereal ToDo
 
+1. `Window Controller` class splitting.
 1. Rectangular Area Erase
 1. Import Image
 1. Shapes
@@ -31,6 +32,9 @@ first, then notify other members to pull the changes.
 ---
 
 ## Monke
+
+### Doing
+1. Canvas bg color
 
 ## Shadab
 
