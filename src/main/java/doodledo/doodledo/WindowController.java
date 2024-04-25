@@ -31,6 +31,7 @@ public class WindowController implements Initializable {
     private static Slider staticBrushWidth;
     private static Canvas staticCanvas;
     Color selectedColor = Color.BLUE;
+    static Color canvasColor, eraserColor;
     // Instance variables
     @FXML
     private Slider brushWidth;
@@ -46,6 +47,16 @@ public class WindowController implements Initializable {
     private double lastX, lastY;
     private Stack<WritableImage> undoStack = new Stack<>();
     private Stack<WritableImage> redoStack = new Stack<>();
+
+    // ToDo: Eraser work in bg, not with color palette
+    // ToDo: Toolbar and canvas gap
+    // set canvas and eraser color
+    private void setCanvasColor(Color color) {
+        canvasColor = color;
+        eraserColor=canvasColor;
+        brush.setFill(canvasColor);
+        brush.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    }
 
     // return true indicates that the program termination is way to go
     // return false refrains from termination
@@ -120,6 +131,7 @@ public class WindowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         // Initialization code...
         staticBrushWidth = brushWidth;
         staticCanvas = canvas;
@@ -127,6 +139,7 @@ public class WindowController implements Initializable {
         brush = canvas.getGraphicsContext2D();
         colorPalette.setValue(Color.BLUE); // for testing
         brushWidth.setValue(5); // for testing
+        setCanvasColor(Color.BLACK);
         saveCurrentState();
 
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
@@ -166,7 +179,7 @@ public class WindowController implements Initializable {
 
         selectedColor = colorPalette.getValue();
         eraserSelected = true;
-        colorPalette.setValue(Color.WHITE);
+        colorPalette.setValue(eraserColor);
     }
 
     @FXML
