@@ -27,6 +27,7 @@ first, then notify other members to pull the changes.
 1. shape color fill
 1. Export to pdf
 1. Handle eraser color variable in background
+1. Make Documentations...
 
 ---
 ---
