@@ -20,7 +20,7 @@ public class WindowController implements Initializable {
     private StateHandler stateHandler;
     @FXML
     private Canvas canvas;
-    private CanvasHandler canvasHandler;
+    private ToolbarHandler toolbarHandler;
 
     public static boolean closeConfirmation() {
         int confirmed = JOptionPane.showConfirmDialog(null,
@@ -52,20 +52,20 @@ public class WindowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        canvasHandler = new CanvasHandler(canvas, canvas.getGraphicsContext2D(), this, new UIController());
+        toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), this, new MasterController());
         stateHandler = new StateHandler(canvas, canvas.getGraphicsContext2D());
-        canvasHandler.setCanvasColor(Color.BLACK);
+        toolbarHandler.setCanvasColor(Color.BLACK);
         stateHandler.saveCurrentState();
     }
 
     @FXML
     public void brushSelected() {
-        canvasHandler.selectBrush(colorPalette.getValue());
+        toolbarHandler.selectBrush(colorPalette.getValue());
     }
 
     @FXML
     public void eraserSelected() {
-        canvasHandler.selectEraser(Color.WHITE);
+        toolbarHandler.selectEraser(Color.WHITE);
     }
 
     @FXML
@@ -75,7 +75,7 @@ public class WindowController implements Initializable {
 
     @FXML
     public void clearCanvas() {
-        canvasHandler.clearCanvas();
+        toolbarHandler.clearCanvas();
     }
 
     @FXML
@@ -92,7 +92,7 @@ public class WindowController implements Initializable {
         return canvas;
     }
 
-    public CanvasHandler getCanvasHandler() {
-        return canvasHandler;
+    public ToolbarHandler getCanvasHandler() {
+        return toolbarHandler;
     }
 }

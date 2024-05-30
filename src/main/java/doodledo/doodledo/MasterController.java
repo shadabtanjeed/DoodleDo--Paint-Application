@@ -10,7 +10,7 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class UIController implements Initializable {
+public class MasterController implements Initializable {
 
     @FXML
     private ColorPicker colorPalette;
@@ -19,7 +19,7 @@ public class UIController implements Initializable {
     private StateHandler stateHandler;
     @FXML
     private Canvas canvas;
-    private CanvasHandler canvasHandler;
+    private ToolbarHandler toolbarHandler;
     private WindowController windowController; // New instance variable
 
     public double getBrushWidth() {
@@ -37,20 +37,20 @@ public class UIController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         windowController = new WindowController(); // Create a new WindowController instance
-        canvasHandler = new CanvasHandler(canvas, canvas.getGraphicsContext2D(), windowController, this); // Pass the WindowController and UIController instance to CanvasHandler
+        toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), windowController, this); // Pass the WindowController and MasterController instance to ToolbarHandler
         stateHandler = new StateHandler(canvas, canvas.getGraphicsContext2D());
-        canvasHandler.setCanvasColor(Color.BLACK);
+        toolbarHandler.setCanvasColor(Color.BLACK);
         stateHandler.saveCurrentState();
     }
 
     @FXML
     public void brushSelected() {
-        canvasHandler.selectBrush(colorPalette.getValue());
+        toolbarHandler.selectBrush(colorPalette.getValue());
     }
 
     @FXML
     public void eraserSelected() {
-        canvasHandler.selectEraser(Color.WHITE);
+        toolbarHandler.selectEraser(Color.WHITE);
     }
 
     @FXML
@@ -60,7 +60,7 @@ public class UIController implements Initializable {
 
     @FXML
     public void clearCanvas() {
-        canvasHandler.clearCanvas();
+        toolbarHandler.clearCanvas();
     }
 
     @FXML

@@ -6,7 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 
-public class CanvasHandler {
+public class ToolbarHandler {
     private final WindowController windowController;
     private Canvas canvas;
     private GraphicsContext brush;
@@ -14,13 +14,13 @@ public class CanvasHandler {
     private boolean eraserSelected = false;
     private Color eraserColor;
     private Color selectedColor = Color.BLUE;
-    private UIController uiController;
+    private MasterController masterController;
 
-    public CanvasHandler(Canvas canvas, GraphicsContext brush, WindowController windowController, UIController uiController) {
+    public ToolbarHandler(Canvas canvas, GraphicsContext brush, WindowController windowController, MasterController masterController) {
         this.canvas = canvas;
         this.brush = brush;
         this.windowController = windowController;
-        this.uiController = uiController; // Initialize uiController here
+        this.masterController = masterController; // Initialize MasterController here
         setupCanvasHandlers();
     }
 
@@ -28,12 +28,12 @@ public class CanvasHandler {
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
             brush.beginPath();
             brush.moveTo(e.getX(), e.getY());
-            brush.setLineWidth(uiController.getBrushWidth());
-            brush.setStroke(uiController.getColorPaletteValue());
+            brush.setLineWidth(masterController.getBrushWidth());
+            brush.setStroke(masterController.getColorPaletteValue());
             brush.setLineCap(StrokeLineCap.BUTT);
             lastX = e.getX();
             lastY = e.getY();
-            uiController.saveCurrentState();
+            masterController.saveCurrentState();
         });
 
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, (e) -> {
