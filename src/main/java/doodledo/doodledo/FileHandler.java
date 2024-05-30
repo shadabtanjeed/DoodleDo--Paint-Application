@@ -40,6 +40,12 @@ public class FileHandler {
                 RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
                 ImageIO.write(renderedImage, "png", saveFile);
                 WindowController.setIsSaved(true);
+
+                Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
+                alert2.setTitle("Image Export");
+                alert2.setHeaderText(null);
+                alert2.setContentText("Canvas exported to image successfully.");
+                alert2.showAndWait();
             } catch (IOException ex) {
                 System.err.println("Unable to Save");
             }

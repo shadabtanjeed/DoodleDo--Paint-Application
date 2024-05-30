@@ -42,7 +42,6 @@ public class MasterController implements Initializable {
     }
 
     @Override
-    
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<String> export_dropdown_list = FXCollections.observableArrayList("Image", "PDF");
         export_context_menu.setItems(export_dropdown_list);
@@ -60,6 +59,8 @@ public class MasterController implements Initializable {
             } else if ("PDF".equals(selected)) {
                 exportPDFAction();
             }
+            // Clear the selection
+            export_context_menu.getSelectionModel().clearSelection();
         });
     }
 
