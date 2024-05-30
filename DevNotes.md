@@ -24,7 +24,6 @@ first, then notify other members to pull the changes.
 1. Different brush tools
 1. Change background color
 1. shape color fill
-1. Export to pdf
 1. Handle eraser color variable in background
 1. Make Documentations
 1. Redisign close confirmation dialog box
@@ -39,7 +38,7 @@ first, then notify other members to pull the changes.
 
 ## Shadab
 
-1. PDF Export (Research)
+1.
 
 ## Rupom
 
