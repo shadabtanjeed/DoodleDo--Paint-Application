@@ -14,7 +14,6 @@ first, then notify other members to pull the changes.
 
 ## Genereal ToDo
 
-1. `Window Controller` class splitting.
 1. Rectangular Area Erase
 1. Import Image
 1. Shapes
@@ -27,17 +26,20 @@ first, then notify other members to pull the changes.
 1. shape color fill
 1. Export to pdf
 1. Handle eraser color variable in background
-1. Make Documentations...
+1. Make Documentations
+1. Redisign close confirmation dialog box
 
 ---
 ---
 
 ## Monke
 
-### Doing
 1. Canvas bg color
+2. Eraser Fix
 
 ## Shadab
+
+1. PDF Export (Research)
 
 ## Rupom
 
