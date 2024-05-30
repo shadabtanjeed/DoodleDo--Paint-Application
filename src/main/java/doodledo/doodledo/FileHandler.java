@@ -2,6 +2,7 @@ package doodledo.doodledo;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Alert;
 import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 
@@ -9,6 +10,19 @@ import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Image;
+import com.itextpdf.kernel.geom.PageSize;
+
+import java.io.FileOutputStream;
 
 public class FileHandler {
     public static void saveImage(Canvas canvas) {
@@ -30,5 +44,56 @@ public class FileHandler {
                 System.err.println("Unable to Save");
             }
         }
+    }
+
+    public static void exportCanvasToPdf(Canvas canvas) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save PDF File");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF files (*.pdf)", "*.pdf"));
+        File saveFile = fileChooser.showSaveDialog(null);
+        if (saveFile != null) {
+            try {
+                saveCanvasToPdf(canvas, saveFile.getAbsolutePath());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("PDF Export");
+                alert.setHeaderText(null);
+                alert.setContentText("Canvas exported to PDF successfully.");
+                alert.showAndWait();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void saveCanvasToPdf(Canvas canvas, String pdfPath) throws IOException {
+        // Convert canvas to image bytes
+        byte[] imageBytes = canvasToImageBytes(canvas);
+
+        // Create iText PDF document
+        PdfWriter writer = new PdfWriter(new FileOutputStream(pdfPath));
+        // Convert canvas size from pixels to points
+        float widthInPoints = (float) canvas.getWidth() * 72 / 96; // 96 is the DPI for most screens
+        float heightInPoints = (float) canvas.getHeight() * 72 / 96;
+        PageSize pageSize = new PageSize(widthInPoints, heightInPoints);
+        PdfDocument pdfDocument = new PdfDocument(writer);
+        pdfDocument.setDefaultPageSize(pageSize);
+        Document document = new Document(pdfDocument);
+
+        // Add image to the document
+        ImageData imageData = ImageDataFactory.create(imageBytes);
+        Image image = new Image(imageData);
+        document.add(image);
+
+        // Close the document
+        document.close();
+    }
+
+    public static byte[] canvasToImageBytes(Canvas canvas) throws IOException {
+        WritableImage writableImage = new WritableImage((int) canvas.getWidth(), (int) canvas.getHeight());
+        canvas.snapshot(null, writableImage);
+        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(writableImage, null);
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
     }
 }
