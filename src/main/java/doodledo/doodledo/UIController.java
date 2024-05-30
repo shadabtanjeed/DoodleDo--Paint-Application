@@ -7,11 +7,10 @@ import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.fxml.Initializable;
 
-import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class WindowController implements Initializable {
+public class UIController implements Initializable {
 
     @FXML
     private ColorPicker colorPalette;
@@ -21,22 +20,7 @@ public class WindowController implements Initializable {
     @FXML
     private Canvas canvas;
     private CanvasHandler canvasHandler;
-
-    public static boolean closeConfirmation() {
-        int confirmed = JOptionPane.showConfirmDialog(null,
-                "Are you sure you want to exit? Any unsaved changes will be lost.",
-                "Exit DoodleDo",
-                JOptionPane.YES_NO_OPTION);
-        return confirmed != JOptionPane.YES_OPTION;
-    }
-
-    public static void setIsSaved(boolean b) {
-        if (b) {
-            System.out.println("Saved");
-        } else {
-            System.out.println("Not Saved");
-        }
-    }
+    private WindowController windowController; // New instance variable
 
     public double getBrushWidth() {
         return brushWidth.getValue();
@@ -52,7 +36,8 @@ public class WindowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        canvasHandler = new CanvasHandler(canvas, canvas.getGraphicsContext2D(), this, new UIController());
+        windowController = new WindowController(); // Create a new WindowController instance
+        canvasHandler = new CanvasHandler(canvas, canvas.getGraphicsContext2D(), windowController, this); // Pass the WindowController and UIController instance to CanvasHandler
         stateHandler = new StateHandler(canvas, canvas.getGraphicsContext2D());
         canvasHandler.setCanvasColor(Color.BLACK);
         stateHandler.saveCurrentState();
@@ -86,13 +71,5 @@ public class WindowController implements Initializable {
     @FXML
     public void redoAction() {
         stateHandler.redoAction();
-    }
-
-    public Canvas getCanvas() {
-        return canvas;
-    }
-
-    public CanvasHandler getCanvasHandler() {
-        return canvasHandler;
     }
 }
