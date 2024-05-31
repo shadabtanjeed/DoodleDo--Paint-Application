@@ -5,12 +5,13 @@
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doodledo.doodledo.MasterController">
     <children>
-        <ToolBar layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="1049.0">
+        <ToolBar layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="1055.0">
             <items>
                 <ComboBox fx:id="export_context_menu" prefHeight="26.0" prefWidth="97.0" promptText="Export As" />
                 <Button fx:id="save_button" mnemonicParsing="false" onAction="#saveSelected" text="Save" />
@@ -22,9 +23,11 @@
                 <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearCanvas" text="Clear" />
                 <Button fx:id="undoButton" layoutX="515.0" layoutY="11.0" mnemonicParsing="false" onAction="#undoAction" text="Undo" />
                 <Button fx:id="redoButton" layoutX="562.0" layoutY="11.0" mnemonicParsing="false" onAction="#redoAction" text="Redo" />
-            <Button fx:id="addImg" mnemonicParsing="false" onAction="#addImage" text="Add Image" />
+                <Button fx:id="addImg" mnemonicParsing="false" onAction="#addImage" text="Add Image" />
+                <Button fx:id="addTxt" mnemonicParsing="false" onAction="#addText" text="Add Text" />
             </items>
         </ToolBar>
+        <TextArea fx:id="inputText" visible="false" wrapText="true" />
         <Canvas fx:id="canvas" height="1080.0" layoutY="50.0" width="1920.0" />
     </children>
 </AnchorPane>

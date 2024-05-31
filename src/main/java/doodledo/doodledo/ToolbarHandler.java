@@ -101,6 +101,11 @@ public class ToolbarHandler {
         }
     }
 
+    public void addText(String text, double x, double y) {
+        brush.setFill(selectedColor);
+        brush.fillText(text, x, y);
+    }
+
     public Canvas getCanvas() {
         return canvas;
     }

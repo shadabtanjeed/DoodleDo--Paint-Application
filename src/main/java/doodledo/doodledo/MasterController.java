@@ -8,12 +8,17 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.control.TextInputDialog;
+import java.util.Optional;
 
 
 public class MasterController implements Initializable {
@@ -34,6 +39,9 @@ public class MasterController implements Initializable {
     private Color initPenColor = Color.BLUE;
     private Color initCanvasColor = Color.BLACK;
 
+    @FXML
+    private TextArea inputText;
+
     public double getBrushWidth() {
         return brushWidth.getValue();
     }
@@ -50,6 +58,20 @@ public class MasterController implements Initializable {
 
     public void addImage() {
         toolbarHandler.addImage(lastX, lastY);
+    }
+
+    @FXML
+    public void addText() {
+        // prompt the user for text
+        TextInputDialog dialog = new TextInputDialog("Enter text");
+        dialog.setTitle("Add Text");
+        dialog.setHeaderText("Enter the text you want to add to the canvas:");
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(text -> {
+            double x = lastX;
+            double y = lastY;
+            toolbarHandler.addText(text, x, y);
+        });
     }
 
     @Override
