@@ -30,7 +30,7 @@ public class MasterController implements Initializable {
     private ComboBox<String> export_context_menu;
 
     private Color initPenColor = Color.BLUE;
-    private Color initCanvasColor = Color.BLACK;
+    private Color initCanvasColor = Color.WHITE;
 
     public double getBrushWidth() {
         return brushWidth.getValue();
@@ -107,6 +107,12 @@ public class MasterController implements Initializable {
 
     public void exportPDFAction() {
         FileHandler.exportCanvasToPdf(canvas);
+    }
+
+    @FXML
+    public void fillSelected() {
+        System.out.println("fill button clicked");
+        toolbarHandler.selectFill();
     }
 
     Canvas getCanvas() {
