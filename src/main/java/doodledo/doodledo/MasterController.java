@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.fxml.Initializable;
 
@@ -29,6 +30,7 @@ public class MasterController implements Initializable {
     @FXML
     private ComboBox<String> export_context_menu;
 
+    private double lastX, lastY;
     private Color initPenColor = Color.BLUE;
     private Color initCanvasColor = Color.BLACK;
 
@@ -41,7 +43,13 @@ public class MasterController implements Initializable {
     }
 
     public void saveCurrentState() {
+        double x = canvas.getWidth();
+        double y = canvas.getHeight();
         stateHandler.saveCurrentState();
+    }
+
+    public void addImage() {
+        toolbarHandler.addImage(lastX, lastY);
     }
 
     @Override
@@ -61,6 +69,11 @@ public class MasterController implements Initializable {
 
         colorPalette.setValue(initPenColor);
         toolbarHandler.updateSelectedColor(initPenColor);
+
+        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+            lastX = e.getX();
+            lastY = e.getY();
+        });
 
         // Add action listener to export_context_menu
         export_context_menu.getSelectionModel().selectedItemProperty().addListener((Observable observable) -> {

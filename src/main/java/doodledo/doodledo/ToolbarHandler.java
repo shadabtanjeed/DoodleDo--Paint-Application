@@ -2,9 +2,15 @@ package doodledo.doodledo;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.stage.FileChooser;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class ToolbarHandler {
     private final WindowController windowController;
@@ -75,6 +81,23 @@ public class ToolbarHandler {
     public void updateSelectedColor(Color color) {
         if (!eraserSelected) {
             selectedColor = color;
+        }
+    }
+
+    public void addImage(double x, double y) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("JPG Images", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG Images", "*.png")
+        );
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            try {
+                Image image = new Image(new FileInputStream(selectedFile));
+                brush.drawImage(image, x, y);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 
