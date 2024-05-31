@@ -1,5 +1,6 @@
 package doodledo.doodledo;
 
+
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
@@ -14,6 +15,8 @@ import javafx.fxml.Initializable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static doodledo.doodledo.CanvasInitController.globalCanvasColor;
 
 
 public class MasterController implements Initializable {
@@ -31,16 +34,13 @@ public class MasterController implements Initializable {
     private ComboBox<String> export_context_menu;
 
     private Color initBrushColor = Color.BLUE;
-    private Color initCanvasColor = Color.LIGHTPINK;
+    private Color initCanvasColor = globalCanvasColor;
 
 
     public double getBrushWidth() {
         return brushWidth.getValue();
     }
 
-    public Color getColorPaletteValue() {
-        return colorPalette.getValue();
-    }
 
     public void saveCurrentState() {
         stateHandler.saveCurrentState();
@@ -116,24 +116,5 @@ public class MasterController implements Initializable {
         FileHandler.exportCanvasToPdf(canvas);
     }
 
-    public void setInitCanvasColor(Color color) {
-        this.initCanvasColor = color;
-        if (toolbarHandler != null) {
-            toolbarHandler.setCanvasColor(color);
-        } else {
-            Platform.runLater(() -> {
-                if (toolbarHandler != null) {
-                    toolbarHandler.setCanvasColor(color);
-                }
-            });
-        }
-    }
 
-    Canvas getCanvas() {
-        return canvas;
-    }
-
-    public ToolbarHandler getToolbarHandler() {
-        return toolbarHandler;
-    }
 }
