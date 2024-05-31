@@ -1,5 +1,6 @@
 package doodledo.doodledo;
 
+import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,7 +31,8 @@ public class MasterController implements Initializable {
     private ComboBox<String> export_context_menu;
 
     private Color initBrushColor = Color.BLUE;
-    private Color initCanvasColor = Color.BLACK;
+    private Color initCanvasColor = Color.LIGHTPINK;
+
 
     public double getBrushWidth() {
         return brushWidth.getValue();
@@ -44,20 +46,24 @@ public class MasterController implements Initializable {
         stateHandler.saveCurrentState();
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<String> export_dropdown_list = FXCollections.observableArrayList("Image", "PDF");
         export_context_menu.setItems(export_dropdown_list);
         windowController = new WindowController(); // Create a new WindowController instance
-        toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), windowController, this); // Pass the WindowController and MasterController instance to ToolbarHandler
+        this.toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), windowController, this);
         stateHandler = new StateHandler(canvas, canvas.getGraphicsContext2D());
-        toolbarHandler.setCanvasColor(initCanvasColor);
         stateHandler.saveCurrentState();
 
         colorPalette.setOnAction(event -> {
             Color selectedColor = colorPalette.getValue();
             toolbarHandler.updateSelectedColor(selectedColor);
         });
+
+        if (initCanvasColor != null) {
+            Platform.runLater(() -> toolbarHandler.setCanvasColor(initCanvasColor));
+        }
 
         colorPalette.setValue(initBrushColor);
         toolbarHandler.updateSelectedColor(initBrushColor);
@@ -105,15 +111,29 @@ public class MasterController implements Initializable {
         stateHandler.redoAction();
     }
 
+    @FXML
     public void exportPDFAction() {
         FileHandler.exportCanvasToPdf(canvas);
     }
 
     public void setInitCanvasColor(Color color) {
         this.initCanvasColor = color;
+        if (toolbarHandler != null) {
+            toolbarHandler.setCanvasColor(color);
+        } else {
+            Platform.runLater(() -> {
+                if (toolbarHandler != null) {
+                    toolbarHandler.setCanvasColor(color);
+                }
+            });
+        }
     }
-    
+
     Canvas getCanvas() {
         return canvas;
+    }
+
+    public ToolbarHandler getToolbarHandler() {
+        return toolbarHandler;
     }
 }
