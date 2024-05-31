@@ -61,6 +61,10 @@ public class WindowController implements Initializable {
         return canvas;
     }
 
+    public static void setCanvas(Canvas canvas) {
+        WindowController.canvas = canvas;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), this, new MasterController());

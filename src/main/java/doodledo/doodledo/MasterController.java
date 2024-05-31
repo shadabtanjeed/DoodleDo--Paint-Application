@@ -79,6 +79,8 @@ public class MasterController implements Initializable {
             // Clear the selection
             export_context_menu.getSelectionModel().clearSelection();
         });
+
+        WindowController.setCanvas(this.getCanvas());
     }
 
     @FXML
@@ -114,6 +116,10 @@ public class MasterController implements Initializable {
     @FXML
     public void exportPDFAction() {
         FileHandler.exportCanvasToPdf(canvas);
+    }
+
+    public Canvas getCanvas() {
+        return canvas;
     }
 
 
