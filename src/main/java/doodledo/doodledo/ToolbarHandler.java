@@ -8,14 +8,14 @@ import javafx.scene.shape.StrokeLineCap;
 
 public class ToolbarHandler {
     private final WindowController windowController;
-    public Color canvasColor;
-    public Color eraserColor;
     private Canvas canvas;
     private GraphicsContext brush;
     private double lastX, lastY;
     private boolean eraserSelected = false;
     private Color selectedColor;
     private MasterController masterController;
+    public Color canvasColor;
+    public Color eraserColor;
 
     public ToolbarHandler(Canvas canvas, GraphicsContext brush, WindowController windowController, MasterController masterController) {
         this.canvas = canvas;
@@ -51,7 +51,6 @@ public class ToolbarHandler {
     }
 
     public void setCanvasColor(Color color) {
-        canvasColor = color; // Add this line
         eraserColor = color;
         brush.setFill(color);
         brush.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -82,6 +81,4 @@ public class ToolbarHandler {
     public Canvas getCanvas() {
         return canvas;
     }
-
-
 }

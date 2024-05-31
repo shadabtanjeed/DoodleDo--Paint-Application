@@ -6,10 +6,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doodledo.doodledo.MasterController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="350.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doodledo.doodledo.CanvasInitController">
     <children>
         <ColorPicker fx:id="canvasColorSelector" layoutX="40.0" layoutY="91.0" prefHeight="32.0" prefWidth="106.0" />
-        <Button fx:id="continueToCanvas" layoutX="214.0" layoutY="91.0" mnemonicParsing="false" onAction="#continueToMainWindow" prefHeight="32.0" prefWidth="82.0" text="Continue" />
+        <Button fx:id="continueToCanvas" layoutX="230.0" layoutY="91.0" mnemonicParsing="false" onAction="#continueToMainWindow" prefHeight="32.0" prefWidth="82.0" text="Continue" />
         <Label alignment="CENTER" layoutX="38.0" layoutY="22.0" prefHeight="40.0" prefWidth="274.0" text="What canvas color would you like?">
             <font>
                 <Font size="15.0" />
