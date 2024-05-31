@@ -12,7 +12,7 @@ public class ToolbarHandler {
     private GraphicsContext brush;
     private double lastX, lastY;
     private boolean eraserSelected = false;
-    private Color selectedColor = Color.BLUE;
+    private Color selectedColor;
     private MasterController masterController;
     public Color canvasColor;
     public Color eraserColor;
@@ -30,7 +30,7 @@ public class ToolbarHandler {
             brush.beginPath();
             brush.moveTo(e.getX(), e.getY());
             brush.setLineWidth(masterController.getBrushWidth());
-            brush.setStroke(masterController.getColorPaletteValue());
+            brush.setStroke(selectedColor);
             brush.setLineCap(StrokeLineCap.BUTT);
             lastX = e.getX();
             lastY = e.getY();
@@ -63,13 +63,19 @@ public class ToolbarHandler {
 
     public void selectEraser() {
         eraserSelected = true;
-        selectedColor = canvasColor;
+        selectedColor = eraserColor;
     }
 
     public void clearCanvas() {
         brush.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         setCanvasColor(canvasColor);
         WindowController.setIsSaved(false);
+    }
+
+    public void updateSelectedColor(Color color) {
+        if (!eraserSelected) {
+            selectedColor = color;
+        }
     }
 
     public Canvas getCanvas() {

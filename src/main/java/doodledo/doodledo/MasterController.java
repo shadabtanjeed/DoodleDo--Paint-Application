@@ -29,6 +29,9 @@ public class MasterController implements Initializable {
     @FXML
     private ComboBox<String> export_context_menu;
 
+    private Color initPenColor = Color.BLUE;
+    private Color initCanvasColor = Color.BLACK;
+
     public double getBrushWidth() {
         return brushWidth.getValue();
     }
@@ -48,8 +51,16 @@ public class MasterController implements Initializable {
         windowController = new WindowController(); // Create a new WindowController instance
         toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), windowController, this); // Pass the WindowController and MasterController instance to ToolbarHandler
         stateHandler = new StateHandler(canvas, canvas.getGraphicsContext2D());
-        toolbarHandler.setCanvasColor(Color.WHEAT);
+        toolbarHandler.setCanvasColor(initCanvasColor);
         stateHandler.saveCurrentState();
+
+        colorPalette.setOnAction(event -> {
+            Color selectedColor = colorPalette.getValue();
+            toolbarHandler.updateSelectedColor(selectedColor);
+        });
+
+        colorPalette.setValue(initPenColor);
+        toolbarHandler.updateSelectedColor(initPenColor);
 
         // Add action listener to export_context_menu
         export_context_menu.getSelectionModel().selectedItemProperty().addListener((Observable observable) -> {
