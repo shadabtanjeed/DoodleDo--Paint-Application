@@ -26,7 +26,6 @@ first, then notify other members to pull the changes.
 1. shape color fill
 1. Handle eraser color variable in background
 1. Make Documentations
-1. Redesign close confirmation dialog box
 
 ---
 ---
@@ -38,7 +37,7 @@ first, then notify other members to pull the changes.
 
 ## Shadab
 
-1. Redesign close confirmation dialog box
+1.
 
 ## Rupom
 
