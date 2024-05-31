@@ -9,8 +9,6 @@ import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.fxml.Initializable;
 
-import javax.swing.*;
-import java.io.File;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -53,9 +51,7 @@ public class WindowController implements Initializable {
                 // exits the program
                 System.exit(0);
                 return true;
-            } else if (result.get() == cancel_alert_button) {
-                return true;
-            }
+            } else return result.get() == cancel_alert_button;
         }
         return false;
     }
@@ -88,7 +84,6 @@ public class WindowController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), this, new MasterController());
         stateHandler = new StateHandler(canvas, canvas.getGraphicsContext2D());
-        toolbarHandler.setCanvasColor(Color.BLACK);
         stateHandler.saveCurrentState();
     }
 
