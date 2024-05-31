@@ -35,6 +35,7 @@ public class ToolbarHandler {
             lastX = e.getX();
             lastY = e.getY();
             masterController.saveCurrentState();
+            FileHandler.setIsSaved(false);
         });
 
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, (e) -> {
@@ -42,11 +43,13 @@ public class ToolbarHandler {
             brush.stroke();
             lastX = e.getX();
             lastY = e.getY();
+            FileHandler.setIsSaved(false);
         });
 
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, (e) -> {
             brush.closePath();
             WindowController.setIsSaved(false);
+            FileHandler.setIsSaved(false);
         });
     }
 
