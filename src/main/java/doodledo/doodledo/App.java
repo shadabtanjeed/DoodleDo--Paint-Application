@@ -12,7 +12,6 @@ import java.util.Objects;
 
 public class App extends Application {
     private static MasterController masterController;
-    private static WindowController windowController;
 
     public static void main(String[] args) {
         launch();
@@ -24,20 +23,25 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("main_window.fxml"));
+        masterController = new MasterController(); // Initialize MasterController here
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("CanvasInit.fxml"));
+
+//        fxmlLoader.setController(masterController);
+
         Scene scene = new Scene(fxmlLoader.load(), 1080, 720);
-        masterController = fxmlLoader.getController(); // Initialize MasterController here
+
         stage.setTitle("DoodleDo");
-        stage.setMaximized(true);
+
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("Logo.png")));
         stage.getIcons().add(icon);
 
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
 
-        stage.setOnCloseRequest((WindowEvent event) -> {
+        stage.setOnCloseRequest((WindowEvent we) -> {
             if (WindowController.closeConfirmation()) {
-                event.consume();
+                we.consume();
             }
         });
     }
