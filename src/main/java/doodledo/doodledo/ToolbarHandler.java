@@ -12,9 +12,10 @@ public class ToolbarHandler {
     private GraphicsContext brush;
     private double lastX, lastY;
     private boolean eraserSelected = false;
-    private Color eraserColor;
     private Color selectedColor = Color.BLUE;
     private MasterController masterController;
+    public Color canvasColor;
+    public Color eraserColor;
 
     public ToolbarHandler(Canvas canvas, GraphicsContext brush, WindowController windowController, MasterController masterController) {
         this.canvas = canvas;
@@ -67,6 +68,7 @@ public class ToolbarHandler {
 
     public void clearCanvas() {
         brush.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        setCanvasColor(canvasColor);
         WindowController.setIsSaved(false);
     }
 

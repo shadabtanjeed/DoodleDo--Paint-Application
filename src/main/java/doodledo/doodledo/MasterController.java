@@ -48,7 +48,7 @@ public class MasterController implements Initializable {
         windowController = new WindowController(); // Create a new WindowController instance
         toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), windowController, this); // Pass the WindowController and MasterController instance to ToolbarHandler
         stateHandler = new StateHandler(canvas, canvas.getGraphicsContext2D());
-        toolbarHandler.setCanvasColor(Color.BLACK);
+        toolbarHandler.setCanvasColor(Color.WHEAT);
         stateHandler.saveCurrentState();
 
         // Add action listener to export_context_menu
