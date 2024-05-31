@@ -61,9 +61,9 @@ public class ToolbarHandler {
         selectedColor = color;
     }
 
-    public void selectEraser(Color color) {
+    public void selectEraser() {
         eraserSelected = true;
-        selectedColor = eraserColor;
+        selectedColor = canvasColor;
     }
 
     public void clearCanvas() {

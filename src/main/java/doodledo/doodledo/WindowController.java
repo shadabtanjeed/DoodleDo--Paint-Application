@@ -4,9 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Slider;
-import javafx.scene.paint.Color;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
@@ -17,10 +14,6 @@ public class WindowController implements Initializable {
 
     @FXML
     private static Canvas canvas;
-    @FXML
-    private ColorPicker colorPalette;
-    @FXML
-    private Slider brushWidth;
     private StateHandler stateHandler;
     private ToolbarHandler toolbarHandler;
 
@@ -68,56 +61,10 @@ public class WindowController implements Initializable {
         return canvas;
     }
 
-    public double getBrushWidth() {
-        return brushWidth.getValue();
-    }
-
-    public Color getColorPaletteValue() {
-        return colorPalette.getValue();
-    }
-
-    public void saveCurrentState() {
-        stateHandler.saveCurrentState();
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), this, new MasterController());
         stateHandler = new StateHandler(canvas, canvas.getGraphicsContext2D());
         stateHandler.saveCurrentState();
-    }
-
-    @FXML
-    public void brushSelected() {
-        toolbarHandler.selectBrush(colorPalette.getValue());
-    }
-
-    @FXML
-    public void eraserSelected() {
-        toolbarHandler.selectEraser(Color.WHITE);
-    }
-
-    @FXML
-    public void saveSelected() {
-        FileHandler.saveImage(canvas);
-    }
-
-    @FXML
-    public void clearCanvas() {
-        toolbarHandler.clearCanvas();
-    }
-
-    @FXML
-    public void undoAction() {
-        stateHandler.undoAction();
-    }
-
-    @FXML
-    public void redoAction() {
-        stateHandler.redoAction();
-    }
-
-    public ToolbarHandler getCanvasHandler() {
-        return toolbarHandler;
     }
 }

@@ -71,7 +71,7 @@ public class MasterController implements Initializable {
 
     @FXML
     public void eraserSelected() {
-        toolbarHandler.selectEraser(Color.WHITE);
+        toolbarHandler.selectEraser();
     }
 
     @FXML
