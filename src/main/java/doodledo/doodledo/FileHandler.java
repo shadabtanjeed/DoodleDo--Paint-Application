@@ -25,6 +25,9 @@ import com.itextpdf.kernel.geom.PageSize;
 import java.io.FileOutputStream;
 
 public class FileHandler {
+
+    static boolean isSaved = false;
+
     public static void saveImage(Canvas canvas) {
         FileChooser imageSaver = new FileChooser();
         imageSaver.setTitle("Save Image File");
@@ -50,6 +53,8 @@ public class FileHandler {
                 System.err.println("Unable to Save");
             }
         }
+
+        isSaved = true;
     }
 
     public static void exportCanvasToPdf(Canvas canvas) {
@@ -69,6 +74,8 @@ public class FileHandler {
                 e.printStackTrace();
             }
         }
+
+        isSaved = true;
     }
 
     public static void saveCanvasToPdf(Canvas canvas, String pdfPath) throws IOException {
@@ -101,5 +108,13 @@ public class FileHandler {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ImageIO.write(bufferedImage, "png", byteArrayOutputStream);
         return byteArrayOutputStream.toByteArray();
+    }
+
+    public static boolean getIsSaved() {
+        return isSaved;
+    }
+
+    public static void setIsSaved(boolean b) {
+        isSaved = b;
     }
 }

@@ -97,4 +97,8 @@ public class MasterController implements Initializable {
     public void exportPDFAction() {
         FileHandler.exportCanvasToPdf(canvas);
     }
+
+    Canvas getCanvas() {
+        return canvas;
+    }
 }
