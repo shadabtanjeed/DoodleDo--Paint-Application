@@ -29,7 +29,7 @@ public class MasterController implements Initializable {
     @FXML
     private ComboBox<String> export_context_menu;
 
-    private Color initPenColor = Color.BLUE;
+    private Color initBrushColor = Color.BLUE;
     private Color initCanvasColor = Color.BLACK;
 
     public double getBrushWidth() {
@@ -59,8 +59,8 @@ public class MasterController implements Initializable {
             toolbarHandler.updateSelectedColor(selectedColor);
         });
 
-        colorPalette.setValue(initPenColor);
-        toolbarHandler.updateSelectedColor(initPenColor);
+        colorPalette.setValue(initBrushColor);
+        toolbarHandler.updateSelectedColor(initBrushColor);
 
         // Add action listener to export_context_menu
         export_context_menu.getSelectionModel().selectedItemProperty().addListener((Observable observable) -> {
@@ -109,6 +109,10 @@ public class MasterController implements Initializable {
         FileHandler.exportCanvasToPdf(canvas);
     }
 
+    public void setInitCanvasColor(Color color) {
+        this.initCanvasColor = color;
+    }
+    
     Canvas getCanvas() {
         return canvas;
     }
