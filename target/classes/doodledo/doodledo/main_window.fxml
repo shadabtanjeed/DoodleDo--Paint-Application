@@ -8,29 +8,23 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: white;"
-            xmlns="http://javafx.com/javafx/21" fx:controller="doodledo.doodledo.MasterController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doodledo.doodledo.MasterController">
     <children>
         <ToolBar layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="1049.0">
             <items>
-                <ComboBox fx:id="export_context_menu" prefHeight="26.0" prefWidth="97.0" promptText="Export As"/>
-                <Button fx:id="save_button" mnemonicParsing="false" onAction="#saveSelected" text="Save"/>
-                <Button fx:id="export_pdf_button" mnemonicParsing="false" onAction="#exportPDFAction"
-                        text="Export PDF"/>
-                <Button fx:id="brushTool" mnemonicParsing="false" onAction="#brushSelected" prefHeight="26.0"
-                        prefWidth="71.0" text="Brush"/>
-                <Button fx:id="eraserTool" mnemonicParsing="false" onAction="#eraserSelected" text="Eraser"/>
-                <ColorPicker fx:id="colorPalette" prefHeight="26.0" prefWidth="114.0"/>
-                <Slider fx:id="brushWidth" blockIncrement="1.0" majorTickUnit="3.0" max="20.0" min="1.0"
-                        minorTickCount="1" prefHeight="16.0" prefWidth="211.0" value="5.0"/>
-                <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearCanvas" text="Clear"/>
-                <Button fx:id="undoButton" layoutX="515.0" layoutY="11.0" mnemonicParsing="false" onAction="#undoAction"
-                        text="Undo"/>
-                <Button fx:id="redoButton" layoutX="562.0" layoutY="11.0" mnemonicParsing="false" onAction="#redoAction"
-                        text="Redo"/>
+                <ComboBox fx:id="export_context_menu" prefHeight="26.0" prefWidth="97.0" promptText="Export As" />
+                <Button fx:id="save_button" mnemonicParsing="false" onAction="#saveSelected" text="Save" />
+                <Button fx:id="export_pdf_button" mnemonicParsing="false" onAction="#exportPDFAction" text="Export PDF" />
+                <Button fx:id="brushTool" mnemonicParsing="false" onAction="#brushSelected" prefHeight="26.0" prefWidth="49.0" text="Brush" />
+            <Button mnemonicParsing="false" text="Soft Brush" />
+                <Button fx:id="eraserTool" mnemonicParsing="false" onAction="#eraserSelected" text="Eraser" />
+                <ColorPicker fx:id="colorPalette" prefHeight="26.0" prefWidth="114.0" />
+                <Slider fx:id="brushWidth" blockIncrement="1.0" majorTickUnit="3.0" max="20.0" min="1.0" minorTickCount="1" prefHeight="16.0" prefWidth="211.0" value="5.0" />
+                <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearCanvas" text="Clear" />
+                <Button fx:id="undoButton" layoutX="515.0" layoutY="11.0" mnemonicParsing="false" onAction="#undoAction" text="Undo" />
+                <Button fx:id="redoButton" layoutX="562.0" layoutY="11.0" mnemonicParsing="false" onAction="#redoAction" text="Redo" />
             </items>
         </ToolBar>
-        <Canvas fx:id="canvas" height="1080.0" layoutY="50.0" width="1920.0"/>
+        <Canvas fx:id="canvas" height="565.0" layoutX="16.0" layoutY="112.0" width="1044.0" />
     </children>
 </AnchorPane>

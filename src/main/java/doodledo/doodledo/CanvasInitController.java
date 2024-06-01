@@ -42,9 +42,9 @@ public class CanvasInitController {
     public void switchToMainWindow(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("main_window.fxml")));
         stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root, 1280, 720);
+        scene = new Scene(root, 1080, 720);
         stage.setScene(scene);
-        stage.setMaximized(true);
+        stage.setResizable(false);
         stage.show();
 
         stage.setOnCloseRequest((WindowEvent event2) -> {
