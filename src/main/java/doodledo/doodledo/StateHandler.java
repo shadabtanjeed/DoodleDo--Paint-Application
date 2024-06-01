@@ -11,14 +11,18 @@ public class StateHandler {
     private Stack<WritableImage> redoStack = new Stack<>();
     private Canvas canvas;
     private GraphicsContext brush;
+    private boolean canvasIsSetUp = false;
 
     public StateHandler(Canvas canvas, GraphicsContext brush) {
         this.canvas = canvas;
         this.brush = brush;
     }
 
-
     public void saveCurrentState() {
+        if(!canvasIsSetUp){
+            canvasIsSetUp = true;
+            return;
+        }
         redoStack.clear();
         WritableImage snapshot = new WritableImage((int) canvas.getWidth(), (int) canvas.getHeight());
         canvas.snapshot(null, snapshot);
