@@ -94,6 +94,11 @@ public class MasterController implements Initializable {
     }
 
     @FXML
+    public void softBrushSelected() {
+        toolbarHandler.selectSoftBrush(colorPalette.getValue());
+    }
+
+    @FXML
     public void saveSelected() {
         FileHandler.saveImage(canvas);
     }
