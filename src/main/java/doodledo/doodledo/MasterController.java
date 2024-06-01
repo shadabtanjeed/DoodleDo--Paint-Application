@@ -35,7 +35,6 @@ public class MasterController implements Initializable {
     @FXML
     private ComboBox<String> export_context_menu;
 
-    private double lastX, lastY;
     private Color initPenColor = Color.BLUE;
     private Color initCanvasColor = Color.BLACK;
 
@@ -57,7 +56,7 @@ public class MasterController implements Initializable {
     }
 
     public void addImage() {
-        toolbarHandler.addImage(lastX, lastY);
+        toolbarHandler.addImage();
     }
 
     @FXML
@@ -68,9 +67,7 @@ public class MasterController implements Initializable {
         dialog.setHeaderText("Enter the text you want to add to the canvas:");
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(text -> {
-            double x = lastX;
-            double y = lastY;
-            toolbarHandler.addText(text, x, y);
+            toolbarHandler.addText(text);
         });
     }
 
@@ -91,11 +88,6 @@ public class MasterController implements Initializable {
 
         colorPalette.setValue(initPenColor);
         toolbarHandler.updateSelectedColor(initPenColor);
-
-        canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-            lastX = e.getX();
-            lastY = e.getY();
-        });
 
         // Add action listener to export_context_menu
         export_context_menu.getSelectionModel().selectedItemProperty().addListener((Observable observable) -> {

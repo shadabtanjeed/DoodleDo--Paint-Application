@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.FileChooser;
+import javafx.scene.text.Font;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,6 +21,9 @@ public class ToolbarHandler {
     private boolean eraserSelected = false;
     private Color selectedColor;
     private MasterController masterController;
+    private String textToDraw = null;
+
+
     public Color canvasColor;
     public Color eraserColor;
 
@@ -27,7 +31,7 @@ public class ToolbarHandler {
         this.canvas = canvas;
         this.brush = brush;
         this.windowController = windowController;
-        this.masterController = masterController; // Initialize MasterController here
+        this.masterController = masterController;
         setupCanvasHandlers();
     }
 
@@ -53,6 +57,20 @@ public class ToolbarHandler {
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, (e) -> {
             brush.closePath();
             WindowController.setIsSaved(false);
+        });
+
+//        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, (e) -> {
+//            // show up temporrily
+//            if (textToDraw != null) {
+//                postText(e);
+//            }
+//        });
+
+        canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+            if (textToDraw != null) {
+                postText(e);
+                textToDraw = null; // clear the text to draw
+            }
         });
     }
 
@@ -84,7 +102,7 @@ public class ToolbarHandler {
         }
     }
 
-    public void addImage(double x, double y) {
+    public void addImage() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPG Images", "*.jpg"),
@@ -94,19 +112,24 @@ public class ToolbarHandler {
         if (selectedFile != null) {
             try {
                 Image image = new Image(new FileInputStream(selectedFile));
-                brush.drawImage(image, x, y);
+                brush.drawImage(image, 50, 50);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void addText(String text, double x, double y) {
-        brush.setFill(selectedColor);
-        brush.fillText(text, x, y);
+    public void addText(String text) {
+        textToDraw = text;
     }
 
     public Canvas getCanvas() {
         return canvas;
+    }
+
+    private void postText(MouseEvent event){
+        brush.setFont(new Font("Verdana", 10 + 3 * ( masterController.getBrushWidth() ) )); // for text size to be readable
+        brush.setFill(selectedColor);
+        brush.fillText(textToDraw, event.getX(), event.getY()); // draw at the clicked position
     }
 }
