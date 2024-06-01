@@ -70,11 +70,19 @@ public class ToolbarHandler {
 
             if (softBrushSelected) {
                 Image brushImage = snapshotBrushImage();
-                brush.drawImage(
-                        brushImage,
-                        currentX - softBrush.getRadius(),
-                        currentY - softBrush.getRadius()
-                );
+                double distance = Math.sqrt(Math.pow(currentX - lastX, 2) + Math.pow(currentY - lastY, 2));
+                int steps = (int) Math.max(distance, 1);
+
+                for (int i = 0; i < steps; i++) {
+                    double t = (double) i / (steps - 1);
+                    double x = lerp(lastX, currentX, t);
+                    double y = lerp(lastY, currentY, t);
+                    brush.drawImage(
+                            brushImage,
+                            x - softBrush.getRadius(),
+                            y - softBrush.getRadius()
+                    );
+                }
             } else {
                 brush.lineTo(currentX, currentY);
                 brush.stroke();
@@ -137,5 +145,9 @@ public class ToolbarHandler {
 
     private Image snapshotBrushImage() {
         return softBrush.snapshot(snapshotParams, null);
+    }
+
+    private double lerp(double start, double end, double t) {
+        return start + t * (end - start);
     }
 }
