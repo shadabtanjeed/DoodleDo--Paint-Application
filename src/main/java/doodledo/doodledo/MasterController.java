@@ -13,6 +13,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.fxml.Initializable;
 
+import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -20,6 +21,9 @@ import static doodledo.doodledo.CanvasInitController.globalCanvasColor;
 
 
 public class MasterController implements Initializable {
+
+    @FXML
+    private ComboBox<String> shape_dropdown;
 
     @FXML
     private ColorPicker colorPalette;
@@ -49,6 +53,18 @@ public class MasterController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        ObservableList<String> shape_dropdown_list = FXCollections.observableArrayList("Circle", "Square", "Rectangle", "Ellipse", "Triangle");
+        shape_dropdown.setItems(shape_dropdown_list);
+
+        shape_dropdown.getSelectionModel().selectedItemProperty().addListener((Observable observable) -> {
+            String selectedShape = shape_dropdown.getSelectionModel().getSelectedItem();
+            if (selectedShape != null) {
+                toolbarHandler.selectShape(selectedShape);
+            }
+            shape_dropdown.getSelectionModel().clearSelection();
+        });
+
         ObservableList<String> export_dropdown_list = FXCollections.observableArrayList("Image", "PDF");
         export_context_menu.setItems(export_dropdown_list);
         windowController = new WindowController(); // Create a new WindowController instance
@@ -120,6 +136,12 @@ public class MasterController implements Initializable {
 
     public Canvas getCanvas() {
         return canvas;
+    }
+
+    @FXML
+    public void selectShape() {
+        String selectedShape = shape_dropdown.getSelectionModel().getSelectedItem();
+        toolbarHandler.selectShape(selectedShape);
     }
 
 

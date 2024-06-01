@@ -14,8 +14,12 @@ public class ToolbarHandler {
     private GraphicsContext brush;
     private double lastX, lastY;
     private boolean eraserSelected = false;
+
+    private boolean shapeSelected = false;
     private Color selectedColor;
     private MasterController masterController;
+
+    private Tool currentTool;
 
     public ToolbarHandler(Canvas canvas, GraphicsContext brush, WindowController windowController, MasterController masterController) {
         this.canvas = canvas;
@@ -27,6 +31,10 @@ public class ToolbarHandler {
 
     private void setupCanvasHandlers() {
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+            if (currentTool != null) {
+                currentTool.draw(e);
+            }
+
             brush.beginPath();
             brush.moveTo(e.getX(), e.getY());
             brush.setLineWidth(masterController.getBrushWidth());
@@ -39,6 +47,11 @@ public class ToolbarHandler {
         });
 
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, (e) -> {
+
+            if (currentTool != null) {
+                currentTool.draw(e);
+            }
+
             brush.lineTo(e.getX(), e.getY());
             brush.stroke();
             lastX = e.getX();
@@ -63,6 +76,8 @@ public class ToolbarHandler {
     public void selectBrush(Color color) {
         eraserSelected = false;
         selectedColor = color;
+        shapeSelected = false;
+        currentTool = null;
     }
 
     public void selectEraser() {
@@ -85,4 +100,11 @@ public class ToolbarHandler {
     public Canvas getCanvas() {
         return canvas;
     }
+
+    public void selectShape(String shape) {
+        // Set the current tool to a new ShapeTool
+        currentTool = new ShapeTool(canvas, brush, shape);
+        shapeSelected = true;
+    }
 }
+
