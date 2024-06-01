@@ -53,7 +53,7 @@ public class WindowController implements Initializable {
         if (b) {
             System.out.println("Saved");
         } else {
-            System.out.println("Not Saved");
+//            System.out.println("Not Saved");
         }
     }
 
