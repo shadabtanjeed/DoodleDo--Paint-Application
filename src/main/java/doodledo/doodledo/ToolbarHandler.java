@@ -10,6 +10,7 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.StrokeLineCap;
 
 public class ToolbarHandler {
     private final WindowController windowController;
@@ -53,6 +54,7 @@ public class ToolbarHandler {
             brush.moveTo(e.getX(), e.getY());
             brush.setLineWidth(masterController.getBrushWidth());
             brush.setStroke(selectedColor);
+            brush.setLineCap(StrokeLineCap.ROUND);  // Change StrokeLineCap to ROUND
             lastX = e.getX();
             lastY = e.getY();
             masterController.saveCurrentState();
@@ -83,7 +85,9 @@ public class ToolbarHandler {
                             y - softBrush.getRadius()
                     );
                 }
-            } else {
+            }
+
+            if (!softBrushSelected) {
                 brush.lineTo(currentX, currentY);
                 brush.stroke();
             }
