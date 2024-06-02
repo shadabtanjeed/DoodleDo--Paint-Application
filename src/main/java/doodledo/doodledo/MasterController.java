@@ -68,6 +68,28 @@ public class MasterController implements Initializable {
         colorPalette.setValue(initBrushColor);
         toolbarHandler.updateSelectedColor(initBrushColor);
 
+        //listener for color palette
+        colorPalette.valueProperty().addListener((observable, oldValue, newValue) -> {
+            toolbarHandler.updateSelectedColor(newValue);
+            if (toolbarHandler.softBrushSelected) {
+                toolbarHandler.selectSoftBrush(newValue);
+            }
+            if (toolbarHandler.highlighterSelected) {
+                toolbarHandler.selectHighLighter(newValue);
+            }
+        });
+
+        // Add a change listener to the brushWidth
+        brushWidth.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (toolbarHandler.softBrushSelected) {
+                toolbarHandler.selectSoftBrush(colorPalette.getValue());
+            }
+
+            if (toolbarHandler.highlighterSelected) {
+                toolbarHandler.selectHighLighter(colorPalette.getValue());
+            }
+        });
+
         // Add action listener to export_context_menu
         export_context_menu.getSelectionModel().selectedItemProperty().addListener((Observable observable) -> {
             String selected = export_context_menu.getSelectionModel().getSelectedItem();

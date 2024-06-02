@@ -17,15 +17,15 @@ public class ToolbarHandler {
     private final SnapshotParameters snapshotParams = new SnapshotParameters();
     public Color canvasColor;
     public Color eraserColor;
+    boolean softBrushSelected = false;
+    boolean highlighterSelected = false;
     private Canvas canvas;
     private GraphicsContext brush;
     private double lastX, lastY;
     private boolean eraserSelected = false;
-    private boolean softBrushSelected = false;
     private Color selectedColor;
     private MasterController masterController;
     private RadialGradient brushGradient;
-    private boolean highlighterSelected = false;
 
     public ToolbarHandler(Canvas canvas, GraphicsContext brush, WindowController windowController, MasterController masterController) {
         this.canvas = canvas;
@@ -139,7 +139,11 @@ public class ToolbarHandler {
 
     public void updateSelectedColor(Color color) {
         if (!eraserSelected) {
-            selectedColor = color;
+            if (highlighterSelected) {
+                selectedColor = Color.color(color.getRed(), color.getGreen(), color.getBlue(), 0.4);
+            } else {
+                selectedColor = color;
+            }
             brushGradient = createRadialGradient(selectedColor);
         }
     }
