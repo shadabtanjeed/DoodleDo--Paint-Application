@@ -16,11 +16,6 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
-
 import static doodledo.doodledo.CanvasInitController.globalCanvasColor;
 
 
@@ -37,6 +32,7 @@ public class MasterController implements Initializable {
     private WindowController windowController; // New instance variable
     @FXML
     private ComboBox<String> export_context_menu;
+
     private Color initBrushColor = Color.BLUE;
     private Color initCanvasColor = globalCanvasColor;
 
@@ -56,11 +52,9 @@ public class MasterController implements Initializable {
         ObservableList<String> export_dropdown_list = FXCollections.observableArrayList("Image", "PDF");
         export_context_menu.setItems(export_dropdown_list);
         windowController = new WindowController(); // Create a new WindowController instance
-
         this.toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), windowController, this);
         stateHandler = new StateHandler(canvas, canvas.getGraphicsContext2D());
         stateHandler.saveCurrentState();
-
 
         colorPalette.setOnAction(event -> {
             Color selectedColor = colorPalette.getValue();
@@ -108,23 +102,8 @@ public class MasterController implements Initializable {
             export_context_menu.getSelectionModel().clearSelection();
         });
 
-//        // Add key combinations
-//        canvas.getScene().setOnKeyPressed(this::handleKeyCombination);
-
-
         WindowController.setCanvas(this.getCanvas());
     }
-
-//    private void handleKeyCombination(KeyEvent event) {
-//        KeyCombination saveCombination = new KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_DOWN);
-//        KeyCombination exportPdfCombination = new KeyCodeCombination(KeyCode.P, KeyCombination.CONTROL_DOWN);
-//
-//        if (saveCombination.match(event)) {
-//            saveSelected();
-//        } else if (exportPdfCombination.match(event)) {
-//            exportPDFAction();
-//        }
-//    }
 
     @FXML
     public void brushSelected() {
@@ -152,9 +131,7 @@ public class MasterController implements Initializable {
     }
 
     @FXML
-
     public void undoAction() {
-        
         stateHandler.undoAction();
     }
 

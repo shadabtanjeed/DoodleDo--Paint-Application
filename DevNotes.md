@@ -40,16 +40,4 @@ first, then notify other members to pull the changes.
 
 ## Rupom
 
-## Key Combinations
-
-The application uses the following key combinations for various actions:
-
-- **Save**: `Ctrl + S`
-- **Export to PDF**: `Ctrl + P`
-- **Undo**: `Ctrl + Z`
-- **Redo**: `Ctrl + R`
-- **Clear Canvas**: `Ctrl + N`
-- **Select Eraser**: `Ctrl + E`
-- **Select Brush**: `Ctrl + B`
-
 
