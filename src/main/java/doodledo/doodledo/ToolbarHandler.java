@@ -135,7 +135,8 @@ public class ToolbarHandler {
 
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, (e) -> {
             if (textToDraw != null) {
-                brush.setFont(new Font("Verdana", 10 + 3 * (masterController.getBrushWidth())));
+                double fontSize = Math.min(10 + 3 * (masterController.getBrushWidth()), canvas.getHeight() - 1);
+                brush.setFont(new Font("Verdana", fontSize));
                 brush.setFill(selectedColor);
                 brush.fillText(textToDraw, lastX, lastY);
 

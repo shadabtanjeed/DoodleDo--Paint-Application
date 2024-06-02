@@ -106,6 +106,8 @@ public class MasterController implements Initializable {
             if (toolbarHandler.highlighterSelected) {
                 toolbarHandler.selectHighLighter(newValue);
             }
+
+            
         });
 
         // Add a change listener to the brushWidth
@@ -117,6 +119,8 @@ public class MasterController implements Initializable {
             if (toolbarHandler.highlighterSelected) {
                 toolbarHandler.selectHighLighter(colorPalette.getValue());
             }
+
+            toolbarHandler.updateSelectedColor(colorPalette.getValue());
         });
 
         hoveringText = new Text();
