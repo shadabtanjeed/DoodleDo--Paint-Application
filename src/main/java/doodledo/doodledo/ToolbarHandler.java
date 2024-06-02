@@ -13,6 +13,8 @@ public class ToolbarHandler {
     private Canvas canvas;
     private GraphicsContext brush;
     private double lastX, lastY;
+
+    private boolean brushSelected = true;
     private boolean eraserSelected = false;
 
     private boolean shapeSelected = false;
@@ -35,34 +37,39 @@ public class ToolbarHandler {
                 currentTool.draw(e);
             }
 
-            brush.beginPath();
-            brush.moveTo(e.getX(), e.getY());
-            brush.setLineWidth(masterController.getBrushWidth());
-            brush.setStroke(selectedColor);
-            brush.setLineCap(StrokeLineCap.BUTT);
-            lastX = e.getX();
-            lastY = e.getY();
-            masterController.saveCurrentState();
-            FileHandler.setIsSaved(false);
+            if(brushSelected) {
+                brush.beginPath();
+                brush.moveTo(e.getX(), e.getY());
+                brush.setLineWidth(masterController.getBrushWidth());
+                brush.setStroke(selectedColor);
+                brush.setLineCap(StrokeLineCap.BUTT);
+                lastX = e.getX();
+                lastY = e.getY();
+                masterController.saveCurrentState();
+                FileHandler.setIsSaved(false);
+            }
         });
 
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, (e) -> {
 
-            if (currentTool != null) {
-                currentTool.draw(e);
+//            if (currentTool != null) {
+//                currentTool.draw(e);
+//            }
+            if(brushSelected) {
+                brush.lineTo(e.getX(), e.getY());
+                brush.stroke();
+                lastX = e.getX();
+                lastY = e.getY();
+                FileHandler.setIsSaved(false);
             }
-
-            brush.lineTo(e.getX(), e.getY());
-            brush.stroke();
-            lastX = e.getX();
-            lastY = e.getY();
-            FileHandler.setIsSaved(false);
         });
 
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, (e) -> {
-            brush.closePath();
-            WindowController.setIsSaved(false);
-            FileHandler.setIsSaved(false);
+            if(brushSelected) {
+                brush.closePath();
+                WindowController.setIsSaved(false);
+                FileHandler.setIsSaved(false);
+            }
         });
     }
 
@@ -74,6 +81,7 @@ public class ToolbarHandler {
     }
 
     public void selectBrush(Color color) {
+        brushSelected = true;
         eraserSelected = false;
         selectedColor = color;
         shapeSelected = false;
@@ -105,6 +113,8 @@ public class ToolbarHandler {
         // Set the current tool to a new ShapeTool
         currentTool = new ShapeTool(canvas, brush, shape);
         shapeSelected = true;
+        brushSelected = false;
+
     }
 }
 

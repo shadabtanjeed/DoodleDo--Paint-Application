@@ -62,7 +62,7 @@ public class MasterController implements Initializable {
             if (selectedShape != null) {
                 toolbarHandler.selectShape(selectedShape);
             }
-            shape_dropdown.getSelectionModel().clearSelection();
+//            shape_dropdown.getSelectionModel().clearSelection();
         });
 
         ObservableList<String> export_dropdown_list = FXCollections.observableArrayList("Image", "PDF");
