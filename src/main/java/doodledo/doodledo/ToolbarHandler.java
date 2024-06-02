@@ -10,18 +10,15 @@ public class ToolbarHandler {
     private final WindowController windowController;
     public Color canvasColor;
     public Color eraserColor;
+    Tool currentTool;
     private Canvas canvas;
     private GraphicsContext brush;
     private double lastX, lastY;
-
     private boolean brushSelected = true;
     private boolean eraserSelected = false;
-
     private boolean shapeSelected = false;
     private Color selectedColor;
     private MasterController masterController;
-
-    Tool currentTool;
 
     public ToolbarHandler(Canvas canvas, GraphicsContext brush, WindowController windowController, MasterController masterController) {
         this.canvas = canvas;
@@ -101,6 +98,7 @@ public class ToolbarHandler {
         brushSelected = false;
         shapeSelected = false;
         currentTool = null;
+        selectBrush(eraserColor);
     }
 
     public void clearCanvas() {
@@ -124,6 +122,7 @@ public class ToolbarHandler {
         currentTool = new ShapeTool(canvas, brush, shape, strokeColor, strokeWidth);
         shapeSelected = true;
         brushSelected = false;
+        eraserSelected = false;
     }
 }
 
