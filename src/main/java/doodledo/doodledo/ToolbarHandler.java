@@ -118,9 +118,8 @@ public class ToolbarHandler {
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPG Images", "*.jpg"),
                 new FileChooser.ExtensionFilter("PNG Images", "*.png"),
-                new FileChooser.ExtensionFilter("JPEG Images", "*.jpeg"),
-                new FileChooser.ExtensionFilter("SVG Images", "*.svg")
-                );
+                new FileChooser.ExtensionFilter("JPEG Images", "*.jpeg")
+        );
         File selectedFile = fileChooser.showOpenDialog(null);
 
         if (selectedFile != null) {
