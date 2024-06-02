@@ -137,9 +137,9 @@ public class ToolbarHandler {
             if (textToDraw != null) {
                 brush.setFont(new Font("Verdana", 10 + 3 * (masterController.getBrushWidth())));
                 brush.setFill(selectedColor);
-                brush.fillText(textToDraw, e.getX(), e.getY());
+                brush.fillText(textToDraw, lastX, lastY);
 
-                // textToDraw = null; // Remove this line
+                textToDraw = null;
                 hoveringText.setVisible(false);
                 masterController.saveCurrentState();
             } else {
