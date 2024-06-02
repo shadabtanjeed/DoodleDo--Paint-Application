@@ -97,6 +97,21 @@ public class MasterController implements Initializable {
         });
 
         WindowController.setCanvas(this.getCanvas());
+
+
+        colorPalette.setOnAction(event -> {
+            Color selectedColor = colorPalette.getValue();
+            toolbarHandler.updateSelectedColor(selectedColor);
+            if (toolbarHandler.currentTool instanceof ShapeTool) {
+                ((ShapeTool) toolbarHandler.currentTool).setStrokeColor(selectedColor);
+            }
+        });
+
+        brushWidth.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (toolbarHandler.currentTool instanceof ShapeTool) {
+                ((ShapeTool) toolbarHandler.currentTool).setStrokeWidth(newValue.doubleValue());
+            }
+        });
     }
 
     @FXML

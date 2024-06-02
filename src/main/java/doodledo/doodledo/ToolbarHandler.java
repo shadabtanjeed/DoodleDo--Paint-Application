@@ -21,7 +21,7 @@ public class ToolbarHandler {
     private Color selectedColor;
     private MasterController masterController;
 
-    private Tool currentTool;
+    Tool currentTool;
 
     public ToolbarHandler(Canvas canvas, GraphicsContext brush, WindowController windowController, MasterController masterController) {
         this.canvas = canvas;
