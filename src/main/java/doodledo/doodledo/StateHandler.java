@@ -19,7 +19,7 @@ public class StateHandler {
     }
 
     public void saveCurrentState() {
-        if(!canvasIsSetUp){
+        if (!canvasIsSetUp) {
             canvasIsSetUp = true;
             return;
         }
@@ -37,7 +37,7 @@ public class StateHandler {
             WritableImage previousSnapshot = undoStack.pop();
             brush.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             brush.drawImage(previousSnapshot, 0, 0);
-            WindowController.setIsSaved(false);
+
         }
     }
 
@@ -49,7 +49,7 @@ public class StateHandler {
             WritableImage nextSnapshot = redoStack.pop();
             brush.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
             brush.drawImage(nextSnapshot, 0, 0);
-            WindowController.setIsSaved(false);
+
         }
     }
 }

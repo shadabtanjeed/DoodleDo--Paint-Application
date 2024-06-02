@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.text.Text;
 
@@ -79,7 +80,7 @@ public class MasterController implements Initializable {
         ObservableList<String> export_dropdown_list = FXCollections.observableArrayList("Image", "PDF");
         export_context_menu.setItems(export_dropdown_list);
         windowController = new WindowController(); // Create a new WindowController instance
-        this.toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), windowController, this);
+        this.toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), windowController, this, hoveringText);
         stateHandler = new StateHandler(canvas, canvas.getGraphicsContext2D());
         stateHandler.saveCurrentState();
 

@@ -50,13 +50,6 @@ public class WindowController implements Initializable {
         return false;
     }
 
-    public static void setIsSaved(boolean b) {
-        if (b) {
-            System.out.println("Saved");
-        } else {
-            System.out.println("Not Saved");
-        }
-    }
 
     public static Canvas getCanvas() {
         return canvas;
@@ -65,6 +58,7 @@ public class WindowController implements Initializable {
     public static void setCanvas(Canvas canvas) {
         WindowController.canvas = canvas;
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

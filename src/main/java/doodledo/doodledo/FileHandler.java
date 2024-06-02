@@ -45,7 +45,7 @@ public class FileHandler {
                 canvas.snapshot(null, writableImage);
                 RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
                 ImageIO.write(renderedImage, "png", saveFile);
-                WindowController.setIsSaved(true);
+                
 
                 Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
                 alert2.setTitle("Image Export");

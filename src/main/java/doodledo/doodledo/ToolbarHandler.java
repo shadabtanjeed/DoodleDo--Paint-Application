@@ -18,8 +18,6 @@ public class ToolbarHandler {
     private final WindowController windowController;
     public Color canvasColor;
     public Color eraserColor;
-    public Color canvasColor;
-    public Color eraserColor;
     private Canvas canvas;
     private GraphicsContext brush;
     private double lastX, lastY;
@@ -31,7 +29,7 @@ public class ToolbarHandler {
     private double toolbarHeight;
 
     public ToolbarHandler(Canvas canvas, GraphicsContext brush, WindowController windowController,
-            MasterController masterController, Text hoveringText) {
+                          MasterController masterController, Text hoveringText) {
         this.canvas = canvas;
         this.brush = brush;
         this.windowController = windowController;
@@ -79,7 +77,7 @@ public class ToolbarHandler {
 
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, (e) -> {
             brush.closePath();
-            WindowController.setIsSaved(false);
+
             FileHandler.setIsSaved(false);
         });
 
@@ -106,7 +104,7 @@ public class ToolbarHandler {
                 masterController.saveCurrentState();
             } else {
                 brush.closePath();
-                WindowController.setIsSaved(false);
+
             }
         });
     }
@@ -131,7 +129,7 @@ public class ToolbarHandler {
     public void clearCanvas() {
         brush.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         setCanvasColor(canvasColor);
-        WindowController.setIsSaved(false);
+        
     }
 
     public void updateSelectedColor(Color color) {
