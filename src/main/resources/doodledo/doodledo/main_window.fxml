@@ -18,8 +18,8 @@
                 <Button fx:id="save_button" mnemonicParsing="false" onAction="#saveSelected" text="Save" />
                 <Button fx:id="export_pdf_button" mnemonicParsing="false" onAction="#exportPDFAction" text="Export PDF" />
                 <Button fx:id="brushTool" mnemonicParsing="false" onAction="#brushSelected" prefHeight="26.0" prefWidth="71.0" text="Brush" />
-            <Button fx:id="soft_brush" mnemonicParsing="false" text="Soft Brush" />
-            <Button fx:id="highlighter_brush" mnemonicParsing="false" text="HL" />
+            <Button fx:id="soft_brush" mnemonicParsing="false" onAction="#softBrushSelected" text="Soft Brush" />
+            <Button fx:id="highlighter_brush" mnemonicParsing="false" onAction="#HighLighterSelected" text="HL" />
                 <Button fx:id="eraserTool" mnemonicParsing="false" onAction="#eraserSelected" text="Eraser" />
                 <ColorPicker fx:id="colorPalette" prefHeight="26.0" prefWidth="114.0" />
                 <Slider fx:id="brushWidth" blockIncrement="1.0" majorTickUnit="3.0" max="20.0" min="1.0" minorTickCount="1" prefHeight="16.0" prefWidth="211.0" value="5.0" />

@@ -38,7 +38,7 @@ public class ToolbarHandler {
     private double toolbarHeight;
 
     public ToolbarHandler(Canvas canvas, GraphicsContext brush, WindowController windowController,
-            MasterController masterController, Text hoveringText) {
+                          MasterController masterController, Text hoveringText) {
         this.canvas = canvas;
         this.brush = brush;
         this.windowController = windowController;
@@ -60,19 +60,7 @@ public class ToolbarHandler {
                 new Stop(0, color),
                 new Stop(1, Color.TRANSPARENT));
 
-        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, (e) -> {
-            if (textToDraw != null && e.getY() > toolbarHeight) {
-                double fontSize = 10 + 3 * (masterController.getBrushWidth());
-                hoveringText.setFont(new Font("Verdana", fontSize));
-                hoveringText.setFill(selectedColor);
-                hoveringText.setX(e.getX());
-                hoveringText.setY(e.getY() + 2 * fontSize);
-                hoveringText.setText(textToDraw);
-                hoveringText.setVisible(true);
-            } else {
-                hoveringText.setVisible(false);
-            }
-        });
+
     }
 
     private void setupCanvasHandlers() {
@@ -164,6 +152,20 @@ public class ToolbarHandler {
 
             }
         });
+
+        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, (e) -> {
+            if (textToDraw != null && e.getY() > toolbarHeight) {
+                double fontSize = 10 + 3 * (masterController.getBrushWidth());
+                hoveringText.setFont(new Font("Verdana", fontSize));
+                hoveringText.setFill(selectedColor);
+                hoveringText.setX(e.getX());
+                hoveringText.setY(e.getY() + 2 * fontSize);
+                hoveringText.setText(textToDraw);
+                hoveringText.setVisible(true);
+            } else {
+                hoveringText.setVisible(false);
+            }
+        });
     }
 
     public void setCanvasColor(Color color) {
@@ -230,6 +232,9 @@ public class ToolbarHandler {
 
     public void addText(String text) {
         textToDraw = text;
+        if (highlighterSelected) {
+            selectedColor = Color.color(selectedColor.getRed(), selectedColor.getGreen(), selectedColor.getBlue(), 1.0);
+        }
     }
 
     public Canvas getCanvas() {
