@@ -59,17 +59,28 @@ public class ToolbarHandler {
             WindowController.setIsSaved(false);
         });
 
-//        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, (e) -> {
-//            // show up temporrily
-//            if (textToDraw != null) {
-//                postText(e);
-//            }
-//        });
+        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, (e) -> {
+            // Clear the previous temporary text
+            if (textToDraw != null) {
+                masterController.undoAction();
+                // Save the state before drawing the new temporary text
+                masterController.saveCurrentState();
+                brush.setFont(new Font("Verdana", 10 + 3 * ( masterController.getBrushWidth() ) ));
+                brush.setFill(selectedColor);
+                brush.fillText(textToDraw, e.getX(), e.getY());
+            }
+        });
 
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
             if (textToDraw != null) {
-                postText(e);
-                textToDraw = null; // clear the text to draw
+                masterController.undoAction();
+
+                brush.setFont(new Font("Verdana", 10 + 3 * ( masterController.getBrushWidth() ) ));
+                brush.setFill(selectedColor);
+                brush.fillText(textToDraw, e.getX(), e.getY());
+
+                textToDraw = null;
+                masterController.saveCurrentState();
             }
         });
     }
@@ -106,13 +117,22 @@ public class ToolbarHandler {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JPG Images", "*.jpg"),
-                new FileChooser.ExtensionFilter("PNG Images", "*.png")
-        );
+                new FileChooser.ExtensionFilter("PNG Images", "*.png"),
+                new FileChooser.ExtensionFilter("JPEG Images", "*.jpeg"),
+                new FileChooser.ExtensionFilter("SVG Images", "*.svg")
+                );
         File selectedFile = fileChooser.showOpenDialog(null);
+
         if (selectedFile != null) {
             try {
                 Image image = new Image(new FileInputStream(selectedFile));
-                brush.drawImage(image, 50, 50);
+
+                double scalingFactor = masterController.getBrushWidth()/15;
+                double width = image.getWidth()*scalingFactor;
+                double height = image.getHeight()*scalingFactor;
+
+                brush.drawImage(image, 50, 50, width, height);
+                masterController.saveCurrentState();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -125,11 +145,5 @@ public class ToolbarHandler {
 
     public Canvas getCanvas() {
         return canvas;
-    }
-
-    private void postText(MouseEvent event){
-        brush.setFont(new Font("Verdana", 10 + 3 * ( masterController.getBrushWidth() ) )); // for text size to be readable
-        brush.setFill(selectedColor);
-        brush.fillText(textToDraw, event.getX(), event.getY()); // draw at the clicked position
     }
 }
