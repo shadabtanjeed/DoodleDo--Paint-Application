@@ -82,7 +82,7 @@ public class MasterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        ObservableList<String> shape_dropdown_list = FXCollections.observableArrayList("Circle", "Square", "Rectangle", "Ellipse", "Triangle");
+        ObservableList<String> shape_dropdown_list = FXCollections.observableArrayList("Line", "Circle", "Square", "Rectangle", "Ellipse", "Triangle");
         shape_dropdown.setItems(shape_dropdown_list);
 
         shape_dropdown.getSelectionModel().selectedItemProperty().addListener((Observable observable) -> {

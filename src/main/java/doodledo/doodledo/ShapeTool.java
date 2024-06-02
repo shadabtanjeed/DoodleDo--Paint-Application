@@ -46,6 +46,9 @@ public class ShapeTool extends Tool {
 
     private void drawShape(GraphicsContext gc, double startX, double startY, double endX, double endY) {
         switch (shape) {
+            case "Line":
+                gc.strokeLine(startX, startY, endX, endY);
+                break;
             case "Circle":
                 double radius = Math.max(Math.abs(endX - startX), Math.abs(endY - startY));
                 gc.strokeOval(startX, startY, radius, radius);
