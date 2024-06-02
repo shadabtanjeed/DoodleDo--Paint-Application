@@ -303,4 +303,10 @@ public class ToolbarHandler {
         brushSelected = false;
         eraserSelected = false;
     }
+
+    public void fillShape() {
+        if (currentTool instanceof ShapeTool) {
+            ((ShapeTool) currentTool).setFillShape(true, selectedColor);
+        }
+    }
 }

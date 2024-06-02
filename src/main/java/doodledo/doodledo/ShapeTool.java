@@ -7,6 +7,8 @@ import javafx.scene.paint.Color;
 
 public class ShapeTool extends Tool {
 
+    private boolean fillShape = false;
+    private Color fillColor;
     private String shape;
     private double startX, startY;
     private Color strokeColor;
@@ -31,45 +33,60 @@ public class ShapeTool extends Tool {
     public void onMouseDragged(MouseEvent event) {
         double endX = event.getX();
         double endY = event.getY();
-
-        // Clear the previous temporary shape
-        //tempGraphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        // Set the stroke color and width
         tempGraphicsContext.setStroke(strokeColor);
         tempGraphicsContext.setLineWidth(strokeWidth);
-
-        // Draw the temporary shape on the temporary graphics context
-        //drawShape(tempGraphicsContext, startX, startY, endX, endY);
     }
 
     @Override
     public void onMouseReleased(MouseEvent event) {
-
         tempGraphicsContext.setStroke(strokeColor);
         tempGraphicsContext.setLineWidth(strokeWidth);
-        // Draw the final shape on the main graphics context
         drawShape(graphicsContext, startX, startY, event.getX(), event.getY());
     }
 
     private void drawShape(GraphicsContext gc, double startX, double startY, double endX, double endY) {
         switch (shape) {
+            case "Line":
+                gc.strokeLine(startX, startY, endX, endY);
+                break;
             case "Circle":
                 double radius = Math.max(Math.abs(endX - startX), Math.abs(endY - startY));
                 gc.strokeOval(startX, startY, radius, radius);
+                if (fillShape) {
+                    gc.setFill(fillColor);
+                    gc.fillOval(startX, startY, radius, radius);
+                }
                 break;
             case "Square":
                 double size = Math.max(Math.abs(endX - startX), Math.abs(endY - startY));
                 gc.strokeRect(startX, startY, size, size);
+                if (fillShape) {
+                    gc.setFill(fillColor);
+                    gc.fillRect(startX, startY, size, size);
+                }
                 break;
             case "Rectangle":
                 gc.strokeRect(startX, startY, endX - startX, endY - startY);
+                if (fillShape) {
+                    gc.setFill(fillColor);
+                    gc.fillRect(startX, startY, endX - startX, endY - startY);
+                }
                 break;
             case "Ellipse":
                 gc.strokeOval(startX, startY, endX - startX, endY - startY);
+                if (fillShape) {
+                    gc.setFill(fillColor);
+                    gc.fillOval(startX, startY, endX - startX, endY - startY);
+                }
                 break;
             case "Triangle":
                 gc.strokePolygon(new double[]{startX, startX - (endX - startX) / 2, startX + (endX - startX) / 2},
                         new double[]{startY, startY + (endY - startY), startY + (endY - startY)}, 3);
+                if (fillShape) {
+                    gc.setFill(fillColor);
+                    gc.fillPolygon(new double[]{startX, startX - (endX - startX) / 2, startX + (endX - startX) / 2},
+                            new double[]{startY, startY + (endY - startY), startY + (endY - startY)}, 3);
+                }
                 break;
         }
     }
@@ -80,5 +97,10 @@ public class ShapeTool extends Tool {
 
     public void setStrokeWidth(double strokeWidth) {
         this.strokeWidth = strokeWidth;
+    }
+
+    public void setFillShape(boolean fillShape, Color fillColor) {
+        this.fillShape = fillShape;
+        this.fillColor = fillColor;
     }
 }
