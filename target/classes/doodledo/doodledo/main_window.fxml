@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ColorPicker?>
@@ -7,30 +8,383 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1133.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doodledo.doodledo.MasterController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="780.0" prefWidth="1530.0" style="-fx-background-color: #ecf5f9;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doodledo.doodledo.MasterController">
     <children>
-        <ToolBar layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="1108.0">
+      <BorderPane prefHeight="780.0" prefWidth="1530.0">
+         <top>
+            <HBox alignment="CENTER" prefHeight="94.0" prefWidth="1470.0" style="-fx-background-color: #E0E4E6; -fx-background-radius: 20;" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets left="30.0" right="30.0" top="12.0" />
+               </BorderPane.margin>
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="83.0" prefWidth="0.0">
+                     <children>
+                        <HBox prefHeight="110.0" prefWidth="90.0">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="71.0" prefWidth="44.0">
+                                 <children>
+                                        <Button fx:id="save_button" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#saveSelected" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                       <graphic>
+                                          <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@save.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="6.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="export_pdf_button" layoutX="35.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#exportPDFAction" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                       <graphic>
+                                          <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@pdf.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets right="6.0" />
+                                 </HBox.margin>
+                              </VBox>
+                              <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="71.0" prefWidth="44.0">
+                                 <children>
+                                    <Button fx:id="addImg" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addImage" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                       <graphic>
+                                          <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@upload.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="6.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="clearButton" layoutX="35.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#clearCanvas" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                       <graphic>
+                                          <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@clear.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets bottom="10.0" left="20.0" top="10.0" />
+                     </HBox.margin>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="669.0" layoutY="20.0" prefHeight="104.0" prefWidth="1454.0">
+                     <children>
+                        <HBox prefHeight="110.0" prefWidth="90.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="110.0" prefWidth="172.0">
+                                 <children>
+                                    <HBox prefHeight="110.0" prefWidth="90.0">
+                                       <children>
+                                          <VBox alignment="CENTER" prefHeight="71.0" prefWidth="44.0">
+                                             <children>
+                                                <Button fx:id="brushTool" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#brushSelected" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                                   <graphic>
+                                                      <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@brush.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <VBox.margin>
+                                                      <Insets bottom="6.0" />
+                                                   </VBox.margin>
+                                                </Button>
+                                                <Button fx:id="soft_brush" layoutX="35.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#softBrushSelected" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                                   <graphic>
+                                                      <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@soft_brush.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets right="6.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                          <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="71.0" prefWidth="44.0">
+                                             <children>
+                                                <Button fx:id="highlighter_brush" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#HighLighterSelected" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                                   <graphic>
+                                                      <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@highlighter.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <VBox.margin>
+                                                      <Insets bottom="6.0" />
+                                                   </VBox.margin>
+                                                </Button>
+                                                <Button fx:id="addTxt" layoutX="35.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addText" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                                   <graphic>
+                                                      <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@text.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="110.0" prefWidth="90.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="110.0" prefWidth="172.0">
+                                 <children>
+                                    <HBox prefHeight="110.0" prefWidth="90.0">
+                                       <children>
+                                          <VBox alignment="CENTER" prefHeight="71.0" prefWidth="44.0">
+                                             <children>
+                                                <Button fx:id="square_tool" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@square.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <VBox.margin>
+                                                      <Insets bottom="6.0" />
+                                                   </VBox.margin>
+                                                </Button>
+                                                <Button fx:id="rectangle_tool" layoutX="35.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                                   <graphic>
+                                                      <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@rectangle.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets right="6.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                          <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="71.0" prefWidth="44.0">
+                                             <children>
+                                                <Button fx:id="circle_tool" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                                   <graphic>
+                                                      <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@circle.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <VBox.margin>
+                                                      <Insets bottom="6.0" />
+                                                   </VBox.margin>
+                                                </Button>
+                                                <Button fx:id="ellipse_tool" layoutX="35.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                                   <graphic>
+                                                      <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@ellipse.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets right="6.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                          <VBox alignment="CENTER" layoutX="55.0" layoutY="10.0" prefHeight="71.0" prefWidth="44.0">
+                                             <children>
+                                                <Button fx:id="triangle_tool" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                                   <graphic>
+                                                      <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@triangle.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <VBox.margin>
+                                                      <Insets bottom="6.0" />
+                                                   </VBox.margin>
+                                                </Button>
+                                                <Button fx:id="line_tool" layoutX="35.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                                   <graphic>
+                                                      <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@line.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                           <HBox.margin>
+                              <Insets right="30.0" />
+                           </HBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="104.0" prefWidth="31.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="104.0" prefWidth="28.0">
+                                 <children>
+                                    <HBox prefHeight="110.0" prefWidth="90.0">
+                                       <children>
+                                          <VBox alignment="CENTER" prefHeight="71.0" prefWidth="44.0">
+                                             <children>
+                                                <Button fx:id="eraserTool" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#eraserSelected" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                                   <graphic>
+                                                      <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@eraser.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <VBox.margin>
+                                                      <Insets bottom="6.0" />
+                                                   </VBox.margin>
+                                                </Button>
+                                                <Button fx:id="soft_brush1" layoutX="35.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#softBrushSelected" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                                   <graphic>
+                                                      <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@fill.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </Button>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets right="6.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </HBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets right="30.0" />
+                                 </HBox.margin>
+                              </HBox>
+                           </children>
+                        </HBox>
+                        <HBox layoutX="282.0" layoutY="10.0" prefHeight="104.0" prefWidth="239.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="104.0" prefWidth="183.0">
+                                 <children>
+                                    <HBox prefHeight="104.0" prefWidth="212.0">
+                                       <children>
+                                          <VBox alignment="CENTER" prefHeight="104.0" prefWidth="182.0">
+                                             <children>
+                                                    <ColorPicker fx:id="colorPalette" prefHeight="26.0" prefWidth="136.0" style="-fx-background-color: #C9CDC5; -fx-background-radius: 15;">
+                                                   <VBox.margin>
+                                                      <Insets bottom="25.0" />
+                                                   </VBox.margin>
+                                                </ColorPicker>
+                                                    <Slider fx:id="brushWidth" blockIncrement="1.0" majorTickUnit="3.0" max="20.0" min="1.0" minorTickCount="1" prefHeight="16.0" prefWidth="153.0" style="-fx-background-color: #C9CDC5; -fx-background-radius: 15;" value="5.0" />
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets right="6.0" />
+                                             </HBox.margin>
+                                          </VBox>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </HBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets right="30.0" />
+                                 </HBox.margin>
+                              </HBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" layoutX="755.0" layoutY="10.0" prefHeight="104.0" prefWidth="0.0">
+                     <children>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="104.0" prefWidth="231.0">
+                           <children>
+                              <VBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="71.0" prefWidth="44.0">
+                                 <children>
+                                    <Button fx:id="undoButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#undoAction" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                       <graphic>
+                                          <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@undo.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                       <VBox.margin>
+                                          <Insets bottom="6.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="redoButton" layoutX="35.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#redoAction" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                       <graphic>
+                                          <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@redo.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </HBox>
+               </children>
+            </HBox>
+         </top>
+         <center>
+              <Canvas fx:id="canvas" height="626.0" width="1465.0" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+        <TextArea fx:id="inputText" visible="false" wrapText="true" />
+        <Text fx:id="hoveringText" visible="false" />
+        <ToolBar layoutX="376.0" layoutY="-91.0" prefHeight="36.0" prefWidth="1108.0">
             <items>
                 <ComboBox fx:id="export_context_menu" prefHeight="26.0" prefWidth="93.0" promptText="Export As" />
-                <Button fx:id="save_button" mnemonicParsing="false" onAction="#saveSelected" text="Save" />
-                <Button fx:id="export_pdf_button" mnemonicParsing="false" onAction="#exportPDFAction" text="Export PDF" />
-                <Button fx:id="brushTool" mnemonicParsing="false" onAction="#brushSelected" prefHeight="26.0" prefWidth="71.0" text="Brush" />
-                <Button fx:id="eraserTool" mnemonicParsing="false" onAction="#eraserSelected" text="Eraser" />
-                <ColorPicker fx:id="colorPalette" prefHeight="26.0" prefWidth="114.0" />
-                <Slider fx:id="brushWidth" blockIncrement="1.0" majorTickUnit="3.0" max="20.0" min="1.0" minorTickCount="1" prefHeight="16.0" prefWidth="211.0" value="5.0" />
-                <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearCanvas" text="Clear" />
-                <Button fx:id="undoButton" layoutX="515.0" layoutY="11.0" mnemonicParsing="false" onAction="#undoAction" text="Undo" />
-                <Button fx:id="redoButton" layoutX="562.0" layoutY="11.0" mnemonicParsing="false" onAction="#redoAction" text="Redo" />
-                <Button fx:id="addImg" mnemonicParsing="false" onAction="#addImage" text="Add Image" />
-                <Button fx:id="addTxt" mnemonicParsing="false" onAction="#addText" text="Add Text" />
+                <Button mnemonicParsing="false" onAction="#eraserSelected" text="Eraser" />
             <ComboBox fx:id="shape_dropdown" onAction="#selectShape" prefHeight="26.0" prefWidth="116.0" promptText="Shapes" />
             </items>
         </ToolBar>
-        <TextArea fx:id="inputText" visible="false" wrapText="true" />
-        <Canvas fx:id="canvas" height="1080.0" layoutY="50.0" width="1920.0" />
-        <Text fx:id="hoveringText" visible="false" />
     </children>
 </AnchorPane>
