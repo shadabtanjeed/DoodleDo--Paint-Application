@@ -16,6 +16,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.fxml.Initializable;
 
+import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -27,6 +28,9 @@ import java.util.Optional;
 import static doodledo.doodledo.CanvasInitController.globalCanvasColor;
 
 public class MasterController implements Initializable {
+
+    @FXML
+    private ComboBox<String> shape_dropdown;
 
     @FXML
     private ColorPicker colorPalette;
@@ -77,6 +81,18 @@ public class MasterController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        ObservableList<String> shape_dropdown_list = FXCollections.observableArrayList("Circle", "Square", "Rectangle", "Ellipse", "Triangle");
+        shape_dropdown.setItems(shape_dropdown_list);
+
+        shape_dropdown.getSelectionModel().selectedItemProperty().addListener((Observable observable) -> {
+            String selectedShape = shape_dropdown.getSelectionModel().getSelectedItem();
+            if (selectedShape != null) {
+                toolbarHandler.selectShape(selectedShape, colorPalette.getValue(), getBrushWidth());
+            }
+//            shape_dropdown.getSelectionModel().clearSelection();
+        });
+
         ObservableList<String> export_dropdown_list = FXCollections.observableArrayList("Image", "PDF");
         export_context_menu.setItems(export_dropdown_list);
         windowController = new WindowController(); // Create a new WindowController instance
@@ -139,6 +155,21 @@ public class MasterController implements Initializable {
         });
 
         WindowController.setCanvas(this.getCanvas());
+
+
+        colorPalette.setOnAction(event -> {
+            Color selectedColor = colorPalette.getValue();
+            toolbarHandler.updateSelectedColor(selectedColor);
+            if (toolbarHandler.currentTool instanceof ShapeTool) {
+                ((ShapeTool) toolbarHandler.currentTool).setStrokeColor(selectedColor);
+            }
+        });
+
+        brushWidth.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (toolbarHandler.currentTool instanceof ShapeTool) {
+                ((ShapeTool) toolbarHandler.currentTool).setStrokeWidth(newValue.doubleValue());
+            }
+        });
     }
 
     @FXML
@@ -193,5 +224,14 @@ public class MasterController implements Initializable {
     public void HighLighterSelected() {
         toolbarHandler.selectHighLighter(colorPalette.getValue());
     }
+
+    @FXML
+    public void selectShape() {
+        String selectedShape = shape_dropdown.getSelectionModel().getSelectedItem();
+        Color selectedColor = colorPalette.getValue();
+        double selectedWidth = getBrushWidth();
+        toolbarHandler.selectShape(selectedShape, selectedColor, selectedWidth);
+    }
+
 
 }

@@ -24,12 +24,15 @@ public class ToolbarHandler {
     private final SnapshotParameters snapshotParams = new SnapshotParameters();
     public Color canvasColor;
     public Color eraserColor;
+    Tool currentTool;
     boolean softBrushSelected = false;
     boolean highlighterSelected = false;
     private Canvas canvas;
     private GraphicsContext brush;
     private double lastX, lastY;
+    private boolean brushSelected = true;
     private boolean eraserSelected = false;
+    private boolean shapeSelected = false;
     private Color selectedColor;
     private MasterController masterController;
     private RadialGradient brushGradient;
@@ -38,7 +41,7 @@ public class ToolbarHandler {
     private double toolbarHeight;
 
     public ToolbarHandler(Canvas canvas, GraphicsContext brush, WindowController windowController,
-                          MasterController masterController, Text hoveringText) {
+            MasterController masterController, Text hoveringText) {
         this.canvas = canvas;
         this.brush = brush;
         this.windowController = windowController;
@@ -60,18 +63,24 @@ public class ToolbarHandler {
                 new Stop(0, color),
                 new Stop(1, Color.TRANSPARENT));
 
-
     }
 
     private void setupCanvasHandlers() {
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-            brush.beginPath();
-            brush.moveTo(e.getX(), e.getY());
-            brush.setLineWidth(masterController.getBrushWidth());
-            brush.setStroke(selectedColor);
-            brush.setLineCap(StrokeLineCap.ROUND); // Change StrokeLineCap to ROUND
-            lastX = e.getX();
-            lastY = e.getY();
+            if (currentTool != null) {
+                currentTool.onMousePressed(e);
+            }
+
+            if (brushSelected) {
+                brush.beginPath();
+                brush.moveTo(e.getX(), e.getY());
+                brush.setLineWidth(masterController.getBrushWidth());
+                brush.setStroke(selectedColor);
+                brush.setLineCap(StrokeLineCap.ROUND); // Change StrokeLineCap to ROUND
+                lastX = e.getX();
+                lastY = e.getY();
+            }
+
             masterController.saveCurrentState();
             FileHandler.setIsSaved(false);
 
@@ -83,43 +92,49 @@ public class ToolbarHandler {
         });
 
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, (e) -> {
+            if (currentTool != null) {
+                currentTool.onMouseDragged(e);
+            }
 
-            double currentX = e.getX();
-            double currentY = e.getY();
+            if (brushSelected) {
 
-            if (softBrushSelected) {
-                Image brushImage = snapshotBrushImage();
-                double distance = Math.sqrt(Math.pow(currentX - lastX, 2) + Math.pow(currentY - lastY, 2));
-                int steps = (int) Math.max(distance, 1);
+                double currentX = e.getX();
+                double currentY = e.getY();
 
-                for (int i = 0; i < steps; i++) {
-                    double t = (double) i / (steps - 1);
-                    double x = lerp(lastX, currentX, t);
-                    double y = lerp(lastY, currentY, t);
-                    brush.drawImage(
-                            brushImage,
-                            x - softBrush.getRadius(),
-                            y - softBrush.getRadius());
+                if (softBrushSelected) {
+                    Image brushImage = snapshotBrushImage();
+                    double distance = Math.sqrt(Math.pow(currentX - lastX, 2) + Math.pow(currentY - lastY, 2));
+                    int steps = (int) Math.max(distance, 1);
+
+                    for (int i = 0; i < steps; i++) {
+                        double t = (double) i / (steps - 1);
+                        double x = lerp(lastX, currentX, t);
+                        double y = lerp(lastY, currentY, t);
+                        brush.drawImage(
+                                brushImage,
+                                x - softBrush.getRadius(),
+                                y - softBrush.getRadius());
+                    }
                 }
+
+                if (highlighterSelected) {
+                    brush.setLineWidth(masterController.getBrushWidth());
+                    brush.setStroke(selectedColor);
+                    brush.setLineCap(StrokeLineCap.BUTT);
+                    brush.strokeLine(lastX, lastY, currentX, currentY);
+                }
+
+                if (!softBrushSelected && !highlighterSelected) {
+                    brush.lineTo(currentX, currentY);
+                    brush.stroke();
+                }
+
+                lastX = currentX;
+                lastY = currentY;
             }
 
-            if (highlighterSelected) {
-                brush.setLineWidth(masterController.getBrushWidth());
-                brush.setStroke(selectedColor);
-                brush.setLineCap(StrokeLineCap.BUTT);
-                brush.strokeLine(lastX, lastY, currentX, currentY);
-            }
-
-            if (!softBrushSelected && !highlighterSelected) {
-                brush.lineTo(currentX, currentY);
-                brush.stroke();
-            }
-
-            lastX = currentX;
-            lastY = currentY;
             FileHandler.setIsSaved(false);
         });
-
 
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
             if (textToDraw != null) {
@@ -134,22 +149,28 @@ public class ToolbarHandler {
         });
 
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, (e) -> {
-            if (textToDraw != null) {
-                double fontSize = Math.min(10 + 3 * (masterController.getBrushWidth()), canvas.getHeight() - 1);
-                brush.setFont(new Font("Verdana", fontSize));
-                brush.setFill(selectedColor);
-                brush.fillText(textToDraw, lastX, lastY);
+            if (currentTool != null) {
+                currentTool.onMouseReleased(e);
+            }
 
-                textToDraw = null;
-                hoveringText.setVisible(false);
-                masterController.saveCurrentState();
-            } else {
-                brush.closePath();
+            if (brushSelected) {
+                if (textToDraw != null) {
+                    double fontSize = Math.min(10 + 3 * (masterController.getBrushWidth()), canvas.getHeight() - 1);
+                    brush.setFont(new Font("Verdana", fontSize));
+                    brush.setFill(selectedColor);
+                    brush.fillText(textToDraw, lastX, lastY);
+
+                    textToDraw = null;
+                    hoveringText.setVisible(false);
+                    masterController.saveCurrentState();
+                } else {
+                    brush.closePath();
+                }
+
             }
 
             FileHandler.setIsSaved(false);
         });
-
 
         canvas.addEventHandler(MouseEvent.MOUSE_MOVED, (e) -> {
             if (textToDraw != null && e.getY() > toolbarHeight) {
@@ -174,10 +195,13 @@ public class ToolbarHandler {
     }
 
     public void selectBrush(Color color) {
+        brushSelected = true;
         eraserSelected = false;
         softBrushSelected = false;
         highlighterSelected = false;
         selectedColor = color;
+        shapeSelected = false;
+        currentTool = null;
     }
 
     public void selectEraser() {
@@ -185,6 +209,10 @@ public class ToolbarHandler {
         softBrushSelected = false;
         highlighterSelected = false;
         selectedColor = eraserColor;
+        brushSelected = false;
+        shapeSelected = false;
+        currentTool = null;
+        selectBrush(eraserColor);
     }
 
     public void clearCanvas() {
@@ -265,6 +293,14 @@ public class ToolbarHandler {
         highlighterSelected = true;
         selectedColor = Color.color(value.getRed(), value.getGreen(), value.getBlue(), 0.4);
         softBrushSelected = false;
+        eraserSelected = false;
+    }
+
+    public void selectShape(String shape, Color strokeColor, double strokeWidth) {
+        // Set the current tool to a new ShapeTool
+        currentTool = new ShapeTool(canvas, brush, shape, strokeColor, strokeWidth);
+        shapeSelected = true;
+        brushSelected = false;
         eraserSelected = false;
     }
 }
