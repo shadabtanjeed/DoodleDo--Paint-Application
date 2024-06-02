@@ -168,7 +168,7 @@ public class MasterController implements Initializable {
             }
 
             if (toolbarHandler.eraserSelected) {
-                toolbarHandler.selectBrush(initCanvasColor);
+                toolbarHandler.selectEraser();
             }
 
             if (!toolbarHandler.eraserSelected) {

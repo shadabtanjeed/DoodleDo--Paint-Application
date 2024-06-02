@@ -203,6 +203,16 @@ public class ToolbarHandler {
         currentTool = null;
     }
 
+    public void selectBrush(Color color, String eraser) {
+        brushSelected = true;
+        eraserSelected = true;
+        softBrushSelected = false;
+        highlighterSelected = false;
+        selectedColor = color;
+        shapeSelected = false;
+        currentTool = null;
+    }
+
     public void selectEraser() {
         eraserSelected = true;
         softBrushSelected = false;
@@ -211,7 +221,7 @@ public class ToolbarHandler {
         brushSelected = false;
         shapeSelected = false;
         currentTool = null;
-        selectBrush(eraserColor);
+        selectBrush(eraserColor, "");
     }
 
     public void clearCanvas() {
@@ -306,5 +316,9 @@ public class ToolbarHandler {
         if (currentTool instanceof ShapeTool) {
             ((ShapeTool) currentTool).setFillShape(true, selectedColor);
         }
+    }
+
+    public Color getSelectedColor() {
+        return selectedColor;
     }
 }
