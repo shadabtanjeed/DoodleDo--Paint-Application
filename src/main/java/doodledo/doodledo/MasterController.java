@@ -17,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.fxml.Initializable;
 
 import javax.swing.*;
+import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,6 +26,7 @@ import javafx.scene.text.Text;
 
 import java.util.Optional;
 
+import static com.itextpdf.kernel.pdf.PdfName.Circle;
 import static doodledo.doodledo.CanvasInitController.globalCanvasColor;
 
 public class MasterController implements Initializable {
@@ -123,7 +125,7 @@ public class MasterController implements Initializable {
                 toolbarHandler.selectHighLighter(newValue);
             }
 
-            
+
         });
 
         // Add a change listener to the brushWidth
@@ -236,6 +238,36 @@ public class MasterController implements Initializable {
     @FXML
     public void fillShape() {
         toolbarHandler.fillShape();
+    }
+
+    @FXML
+    public void rectangleSelected() {
+        toolbarHandler.selectShape("Rectangle", colorPalette.getValue(), getBrushWidth());
+    }
+
+    @FXML
+    public void circleSelected() {
+        toolbarHandler.selectShape("Circle", colorPalette.getValue(), getBrushWidth());
+    }
+
+    @FXML
+    public void squareSelected() {
+        toolbarHandler.selectShape("Square", colorPalette.getValue(), getBrushWidth());
+    }
+
+    @FXML
+    public void ellipseSelected() {
+        toolbarHandler.selectShape("Ellipse", colorPalette.getValue(), getBrushWidth());
+    }
+
+    @FXML
+    public void triangleSelected() {
+        toolbarHandler.selectShape("Triangle", colorPalette.getValue(), getBrushWidth());
+    }
+
+    @FXML
+    public void lineSelected() {
+        toolbarHandler.selectShape("Line", colorPalette.getValue(), getBrushWidth());
     }
 
 }
