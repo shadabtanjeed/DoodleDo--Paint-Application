@@ -18,6 +18,8 @@ import java.io.FileNotFoundException;
 
 public class ToolbarHandler {
     private final WindowController windowController;
+    public Color canvasColor;
+    public Color eraserColor;
     private Canvas canvas;
     private GraphicsContext brush;
     private double lastX, lastY;
@@ -27,9 +29,6 @@ public class ToolbarHandler {
     private String textToDraw = null;
     private Text hoveringText;
     private double toolbarHeight;
-
-    public Color canvasColor;
-    public Color eraserColor;
 
     public ToolbarHandler(Canvas canvas, GraphicsContext brush, WindowController windowController, MasterController masterController, Text hoveringText) {
         this.canvas = canvas;
@@ -43,7 +42,7 @@ public class ToolbarHandler {
 
         canvas.addEventHandler(MouseEvent.MOUSE_MOVED, (e) -> {
             if (textToDraw != null && e.getY() > toolbarHeight) {
-                double fontSize = 10 + 3 * ( masterController.getBrushWidth() );
+                double fontSize = 10 + 3 * (masterController.getBrushWidth());
                 hoveringText.setFont(new Font("Verdana", fontSize));
                 hoveringText.setFill(selectedColor);
                 hoveringText.setX(e.getX());
@@ -83,13 +82,28 @@ public class ToolbarHandler {
 
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
             if (textToDraw != null) {
-                brush.setFont(new Font("Verdana", 10 + 3 * ( masterController.getBrushWidth() ) ));
+                brush.setFont(new Font("Verdana", 10 + 3 * (masterController.getBrushWidth())));
                 brush.setFill(selectedColor);
                 brush.fillText(textToDraw, e.getX(), e.getY());
 
                 textToDraw = null;
                 hoveringText.setVisible(false);
                 masterController.saveCurrentState();
+            }
+        });
+
+        canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, (e) -> {
+            if (textToDraw != null) {
+                brush.setFont(new Font("Verdana", 10 + 3 * (masterController.getBrushWidth())));
+                brush.setFill(selectedColor);
+                brush.fillText(textToDraw, lastX, lastY);
+
+                textToDraw = null;
+                hoveringText.setVisible(false);
+                masterController.saveCurrentState();
+            } else {
+                brush.closePath();
+                WindowController.setIsSaved(false);
             }
         });
     }
@@ -135,9 +149,9 @@ public class ToolbarHandler {
             try {
                 Image image = new Image(new FileInputStream(selectedFile));
 
-                double scalingFactor = masterController.getBrushWidth()/15;
-                double width = image.getWidth()*scalingFactor;
-                double height = image.getHeight()*scalingFactor;
+                double scalingFactor = masterController.getBrushWidth() / 15;
+                double width = image.getWidth() * scalingFactor;
+                double height = image.getHeight() * scalingFactor;
 
                 brush.drawImage(image, 50, 50, width, height);
                 masterController.saveCurrentState();
