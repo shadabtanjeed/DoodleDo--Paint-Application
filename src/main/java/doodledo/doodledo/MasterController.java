@@ -60,7 +60,7 @@ public class MasterController implements Initializable {
         shape_dropdown.getSelectionModel().selectedItemProperty().addListener((Observable observable) -> {
             String selectedShape = shape_dropdown.getSelectionModel().getSelectedItem();
             if (selectedShape != null) {
-                toolbarHandler.selectShape(selectedShape);
+                toolbarHandler.selectShape(selectedShape, colorPalette.getValue(), getBrushWidth());
             }
 //            shape_dropdown.getSelectionModel().clearSelection();
         });
@@ -138,10 +138,13 @@ public class MasterController implements Initializable {
         return canvas;
     }
 
+
     @FXML
     public void selectShape() {
         String selectedShape = shape_dropdown.getSelectionModel().getSelectedItem();
-        toolbarHandler.selectShape(selectedShape);
+        Color selectedColor = colorPalette.getValue();
+        double selectedWidth = getBrushWidth();
+        toolbarHandler.selectShape(selectedShape, selectedColor, selectedWidth);
     }
 
 

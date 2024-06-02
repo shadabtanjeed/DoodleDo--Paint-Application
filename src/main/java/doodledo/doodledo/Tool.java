@@ -13,5 +13,7 @@ public abstract class Tool {
         this.graphicsContext = graphicsContext;
     }
 
-    public abstract void draw(MouseEvent event);
+    public abstract void onMousePressed(MouseEvent event);
+    public abstract void onMouseDragged(MouseEvent event);
+    public abstract void onMouseReleased(MouseEvent event);
 }

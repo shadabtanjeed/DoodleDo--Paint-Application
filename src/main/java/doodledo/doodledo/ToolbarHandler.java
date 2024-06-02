@@ -34,10 +34,10 @@ public class ToolbarHandler {
     private void setupCanvasHandlers() {
         canvas.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
             if (currentTool != null) {
-                currentTool.draw(e);
+                currentTool.onMousePressed(e);
             }
 
-            if(brushSelected) {
+            if (brushSelected) {
                 brush.beginPath();
                 brush.moveTo(e.getX(), e.getY());
                 brush.setLineWidth(masterController.getBrushWidth());
@@ -45,31 +45,38 @@ public class ToolbarHandler {
                 brush.setLineCap(StrokeLineCap.BUTT);
                 lastX = e.getX();
                 lastY = e.getY();
-                masterController.saveCurrentState();
-                FileHandler.setIsSaved(false);
             }
+
+            masterController.saveCurrentState();
+            FileHandler.setIsSaved(false);
         });
 
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, (e) -> {
+            if (currentTool != null) {
+                currentTool.onMouseDragged(e);
+            }
 
-//            if (currentTool != null) {
-//                currentTool.draw(e);
-//            }
-            if(brushSelected) {
+            if (brushSelected) {
                 brush.lineTo(e.getX(), e.getY());
                 brush.stroke();
                 lastX = e.getX();
                 lastY = e.getY();
-                FileHandler.setIsSaved(false);
             }
+
+            FileHandler.setIsSaved(false);
         });
 
         canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, (e) -> {
-            if(brushSelected) {
-                brush.closePath();
-                WindowController.setIsSaved(false);
-                FileHandler.setIsSaved(false);
+            if (currentTool != null) {
+                currentTool.onMouseReleased(e);
             }
+
+            if (brushSelected) {
+                brush.closePath();
+            }
+
+            WindowController.setIsSaved(false);
+            FileHandler.setIsSaved(false);
         });
     }
 
@@ -109,12 +116,11 @@ public class ToolbarHandler {
         return canvas;
     }
 
-    public void selectShape(String shape) {
+    public void selectShape(String shape, Color strokeColor, double strokeWidth) {
         // Set the current tool to a new ShapeTool
-        currentTool = new ShapeTool(canvas, brush, shape);
+        currentTool = new ShapeTool(canvas, brush, shape, strokeColor, strokeWidth);
         shapeSelected = true;
         brushSelected = false;
-
     }
 }
 
