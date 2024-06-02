@@ -26,7 +26,7 @@
                 <Button fx:id="redoButton" layoutX="562.0" layoutY="11.0" mnemonicParsing="false" onAction="#redoAction" text="Redo" />
                 <Button fx:id="addImg" mnemonicParsing="false" onAction="#addImage" text="Add Image" />
                 <Button fx:id="addTxt" mnemonicParsing="false" onAction="#addText" text="Add Text" />
-            <ComboBox prefHeight="26.0" prefWidth="116.0" promptText="Shapes" />
+            <ComboBox fx:id="shape_dropdown" onAction="#selectShape" prefHeight="26.0" prefWidth="116.0" promptText="Shapes" />
             </items>
         </ToolBar>
         <TextArea fx:id="inputText" visible="false" wrapText="true" />
