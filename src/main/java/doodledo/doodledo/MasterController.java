@@ -198,7 +198,7 @@ public class MasterController implements Initializable {
             }
         });
 
-        Tooltip brushToolTooltip = new Tooltip("Brush Tool");
+        Tooltip brushToolTooltip = new Tooltip("Pen Tool");
         Tooltip.install(brushTool, brushToolTooltip);
 
         Tooltip softBrushTooltip = new Tooltip("Soft Brush Tool");
