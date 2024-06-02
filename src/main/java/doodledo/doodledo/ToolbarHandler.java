@@ -120,11 +120,6 @@ public class ToolbarHandler {
             FileHandler.setIsSaved(false);
         });
 
-        canvas.addEventHandler(MouseEvent.MOUSE_RELEASED, (e) -> {
-            brush.closePath();
-
-            FileHandler.setIsSaved(false);
-        });
 
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
             if (textToDraw != null) {
@@ -142,16 +137,18 @@ public class ToolbarHandler {
             if (textToDraw != null) {
                 brush.setFont(new Font("Verdana", 10 + 3 * (masterController.getBrushWidth())));
                 brush.setFill(selectedColor);
-                brush.fillText(textToDraw, lastX, lastY);
+                brush.fillText(textToDraw, e.getX(), e.getY());
 
-                textToDraw = null;
+                // textToDraw = null; // Remove this line
                 hoveringText.setVisible(false);
                 masterController.saveCurrentState();
             } else {
                 brush.closePath();
-
             }
+
+            FileHandler.setIsSaved(false);
         });
+
 
         canvas.addEventHandler(MouseEvent.MOUSE_MOVED, (e) -> {
             if (textToDraw != null && e.getY() > toolbarHeight) {
@@ -235,6 +232,9 @@ public class ToolbarHandler {
         if (highlighterSelected) {
             selectedColor = Color.color(selectedColor.getRed(), selectedColor.getGreen(), selectedColor.getBlue(), 1.0);
         }
+        highlighterSelected = false;
+        softBrushSelected = false;
+        eraserSelected = false;
     }
 
     public Canvas getCanvas() {
