@@ -128,6 +128,7 @@ public class ToolbarHandler {
     public void selectEraser() {
         eraserSelected = true;
         softBrushSelected = false;
+        highlighterSelected = false;
         selectedColor = eraserColor;
     }
 
@@ -155,6 +156,7 @@ public class ToolbarHandler {
     public void selectSoftBrush(Color value) {
         softBrushSelected = true;
         highlighterSelected = false;
+        eraserSelected = false;
 
         softBrush.setFill(createRadialGradient(value));
         softBrushSelected = true;
@@ -174,5 +176,6 @@ public class ToolbarHandler {
         highlighterSelected = true;
         selectedColor = Color.color(value.getRed(), value.getGreen(), value.getBlue(), 0.4);
         softBrushSelected = false;
+        eraserSelected = false;
     }
 }
