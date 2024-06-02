@@ -20,29 +20,23 @@ public class WindowController implements Initializable {
 
     public static boolean closeConfirmation() {
         if (!FileHandler.getIsSaved()) {
-            // create a confirmation box
             Alert close_alert = new Alert(Alert.AlertType.CONFIRMATION);
             close_alert.setHeaderText("Save Confirmation");
             close_alert.setContentText("Do you want save your progress?");
 
-            // create buttons for confirmation box
             ButtonType save_alert_button = new ButtonType("Save");
             ButtonType dont_save_alert_button = new ButtonType("Don't Save");
             ButtonType cancel_alert_button = new ButtonType("Cancel");
 
-            // add buttons to the confirmation box
             close_alert.getButtonTypes().setAll(save_alert_button, dont_save_alert_button, cancel_alert_button);
 
-            // show the confirmation box
             Optional<ButtonType> result = close_alert.showAndWait();
 
             if (result.get() == save_alert_button) {
-                // save the canvas
                 Canvas canvas1 = WindowController.getCanvas();
                 FileHandler.saveImage(canvas1);
                 return true;
             } else if (result.get() == dont_save_alert_button) {
-                // exits the program
                 System.exit(0);
                 return true;
             } else
@@ -55,7 +49,7 @@ public class WindowController implements Initializable {
         if (b) {
             System.out.println("Saved");
         } else {
-            // System.out.println("Not Saved");
+
         }
     }
 

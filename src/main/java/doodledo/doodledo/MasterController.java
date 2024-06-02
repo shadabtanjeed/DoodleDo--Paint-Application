@@ -1,7 +1,6 @@
 package doodledo.doodledo;
 
 import javafx.application.Platform;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,26 +9,22 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
 
-import javax.swing.*;
-import java.awt.*;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.TextInputDialog;
-import javafx.scene.text.Text;
+
 
 import java.util.Optional;
 
-import static com.itextpdf.kernel.pdf.PdfName.Circle;
+
 import static doodledo.doodledo.CanvasInitController.globalCanvasColor;
 
 public class MasterController implements Initializable {
@@ -115,7 +110,7 @@ public class MasterController implements Initializable {
 
     @FXML
     public void addText() {
-        // prompt the user for text
+
         TextInputDialog dialog = new TextInputDialog("Enter text");
         dialog.setTitle("Add Text");
         dialog.setHeaderText("Enter the text you want to add to the canvas:");
@@ -128,20 +123,10 @@ public class MasterController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        ObservableList<String> shape_dropdown_list = FXCollections.observableArrayList("Line", "Circle", "Square", "Rectangle", "Ellipse", "Triangle");
-        shape_dropdown.setItems(shape_dropdown_list);
-
-        shape_dropdown.getSelectionModel().selectedItemProperty().addListener((Observable observable) -> {
-            String selectedShape = shape_dropdown.getSelectionModel().getSelectedItem();
-            if (selectedShape != null) {
-                toolbarHandler.selectShape(selectedShape, colorPalette.getValue(), getBrushWidth());
-            }
-//            shape_dropdown.getSelectionModel().clearSelection();
-        });
 
         ObservableList<String> export_dropdown_list = FXCollections.observableArrayList("Image", "PDF");
-        export_context_menu.setItems(export_dropdown_list);
-        windowController = new WindowController(); // Create a new WindowController instance
+
+        windowController = new WindowController();
         this.toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), windowController, this,
                 hoveringText);
         stateHandler = new StateHandler(canvas, canvas.getGraphicsContext2D());
@@ -182,23 +167,19 @@ public class MasterController implements Initializable {
                 toolbarHandler.selectHighLighter(colorPalette.getValue());
             }
 
-            toolbarHandler.updateSelectedColor(colorPalette.getValue());
+            if (toolbarHandler.eraserSelected) {
+                toolbarHandler.selectBrush(initCanvasColor);
+            }
+
+            if (!toolbarHandler.eraserSelected) {
+                toolbarHandler.updateSelectedColor(colorPalette.getValue());
+            }
+
         });
 
         hoveringText = new Text();
         hoveringText.setVisible(false);
 
-        // Add action listener to export_context_menu
-        export_context_menu.getSelectionModel().selectedItemProperty().addListener((Observable observable) -> {
-            String selected = export_context_menu.getSelectionModel().getSelectedItem();
-            if ("Image".equals(selected)) {
-                saveSelected();
-            } else if ("PDF".equals(selected)) {
-                exportPDFAction();
-            }
-            // Clear the selection
-            export_context_menu.getSelectionModel().clearSelection();
-        });
 
         WindowController.setCanvas(this.getCanvas());
 
@@ -330,9 +311,6 @@ public class MasterController implements Initializable {
         FileHandler.exportCanvasToPdf(canvas);
     }
 
-    public double getToolbarHeight() {
-        return export_context_menu.getHeight();
-    }
 
     public Canvas getCanvas() {
         return canvas;

@@ -45,7 +45,7 @@ public class FileHandler {
                 canvas.snapshot(null, writableImage);
                 RenderedImage renderedImage = SwingFXUtils.fromFXImage(writableImage, null);
                 ImageIO.write(renderedImage, "png", saveFile);
-                
+
 
                 Alert alert2 = new Alert(Alert.AlertType.INFORMATION);
                 alert2.setTitle("Image Export");
@@ -85,7 +85,6 @@ public class FileHandler {
         // Convert canvas to image bytes
         byte[] imageBytes = canvasToImageBytes(canvas);
 
-        // Create iText PDF document
         PdfWriter writer = new PdfWriter(new FileOutputStream(pdfPath));
         // Convert canvas size from pixels to points
         float widthInPoints = (float) canvas.getWidth() * 72 / 96; // 96 is the DPI for most screens

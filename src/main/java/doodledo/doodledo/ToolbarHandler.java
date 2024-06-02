@@ -27,11 +27,11 @@ public class ToolbarHandler {
     Tool currentTool;
     boolean softBrushSelected = false;
     boolean highlighterSelected = false;
+    boolean eraserSelected = false;
     private Canvas canvas;
     private GraphicsContext brush;
     private double lastX, lastY;
     private boolean brushSelected = true;
-    private boolean eraserSelected = false;
     private boolean shapeSelected = false;
     private Color selectedColor;
     private MasterController masterController;
@@ -41,13 +41,12 @@ public class ToolbarHandler {
     private double toolbarHeight;
 
     public ToolbarHandler(Canvas canvas, GraphicsContext brush, WindowController windowController,
-            MasterController masterController, Text hoveringText) {
+                          MasterController masterController, Text hoveringText) {
         this.canvas = canvas;
         this.brush = brush;
         this.windowController = windowController;
         this.masterController = masterController;
         this.hoveringText = hoveringText;
-        this.toolbarHeight = masterController.getToolbarHeight();
         this.masterController = masterController;
         setupCanvasHandlers();
 
