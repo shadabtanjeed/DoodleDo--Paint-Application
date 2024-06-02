@@ -128,6 +128,7 @@ public class ToolbarHandler {
     public void selectEraser() {
         eraserSelected = true;
         softBrushSelected = false;
+        highlighterSelected = false;
         selectedColor = eraserColor;
     }
 
