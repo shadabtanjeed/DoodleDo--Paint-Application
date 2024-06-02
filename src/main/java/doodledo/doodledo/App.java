@@ -17,9 +17,6 @@ public class App extends Application {
         launch();
     }
 
-//    public static MasterController getUIController() {
-//        return masterController;
-//    }
 
     public static CanvasInitController getCanvasInitController() {
         return canvasInitController;
@@ -30,7 +27,7 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("CanvasInit.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 350, 150);
         canvasInitController = fxmlLoader.getController();
-        masterController = new MasterController(); // Initialize MasterController here
+        masterController = new MasterController();
         canvasInitController.setMasterController(masterController);
         stage.setTitle("DoodleDo");
         Image icon = new Image(Objects.requireNonNull(getClass().getResourceAsStream("Logo.png")));

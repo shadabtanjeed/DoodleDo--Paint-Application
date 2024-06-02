@@ -40,7 +40,7 @@ public class MasterController implements Initializable {
     @FXML
     private Canvas canvas;
     private ToolbarHandler toolbarHandler;
-    private WindowController windowController; // New instance variable
+    private WindowController windowController;
     @FXML
     private ComboBox<String> export_context_menu;
 

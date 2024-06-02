@@ -75,7 +75,7 @@ public class ToolbarHandler {
                 brush.moveTo(e.getX(), e.getY());
                 brush.setLineWidth(masterController.getBrushWidth());
                 brush.setStroke(selectedColor);
-                brush.setLineCap(StrokeLineCap.ROUND); // Change StrokeLineCap to ROUND
+                brush.setLineCap(StrokeLineCap.ROUND);
                 lastX = e.getX();
                 lastY = e.getY();
             }
@@ -296,7 +296,6 @@ public class ToolbarHandler {
     }
 
     public void selectShape(String shape, Color strokeColor, double strokeWidth) {
-        // Set the current tool to a new ShapeTool
         currentTool = new ShapeTool(canvas, brush, shape, strokeColor, strokeWidth);
         shapeSelected = true;
         brushSelected = false;
