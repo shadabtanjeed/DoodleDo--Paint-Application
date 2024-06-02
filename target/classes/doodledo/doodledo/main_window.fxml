@@ -101,7 +101,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@brush.png" />
+                                                            <Image url="@pen.png" />
                                                          </image>
                                                       </ImageView>
                                                    </graphic>
