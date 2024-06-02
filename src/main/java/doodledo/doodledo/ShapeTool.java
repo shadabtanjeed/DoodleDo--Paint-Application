@@ -1,7 +1,9 @@
 package doodledo.doodledo;
 
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
@@ -15,6 +17,8 @@ public class ShapeTool extends Tool {
     private double strokeWidth;
     private GraphicsContext tempGraphicsContext;
 
+    private WritableImage snapshot;
+
     public ShapeTool(Canvas canvas, GraphicsContext graphicsContext, String shape, Color strokeColor, double strokeWidth) {
         super(canvas, graphicsContext);
         this.shape = shape;
@@ -27,6 +31,8 @@ public class ShapeTool extends Tool {
     public void onMousePressed(MouseEvent event) {
         startX = event.getX();
         startY = event.getY();
+
+        snapshot = canvas.snapshot(new SnapshotParameters(), null);
     }
 
     @Override
@@ -35,6 +41,9 @@ public class ShapeTool extends Tool {
         double endY = event.getY();
         tempGraphicsContext.setStroke(strokeColor);
         tempGraphicsContext.setLineWidth(strokeWidth);
+
+        graphicsContext.drawImage(snapshot, 0, 0);
+        drawShape(graphicsContext, startX, startY, endX, endY);
     }
 
     @Override
