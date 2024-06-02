@@ -75,7 +75,7 @@
                                        <graphic>
                                           <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                              <image>
-                                                <Image url="@clear.png" />
+                                                <Image url="@new_new.png" />
                                              </image>
                                           </ImageView>
                                        </graphic>
@@ -239,7 +239,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@line.png" />
+                                                            <Image url="@line_2.png" />
                                                          </image>
                                                       </ImageView>
                                                    </graphic>
@@ -267,7 +267,7 @@
                                                    <graphic>
                                                       <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@eraser.png" />
+                                                            <Image url="@eraser_@.png" />
                                                          </image>
                                                       </ImageView>
                                                    </graphic>
@@ -275,7 +275,7 @@
                                                       <Insets bottom="6.0" />
                                                    </VBox.margin>
                                                 </Button>
-                                                <Button fx:id="soft_brush1" layoutX="35.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#softBrushSelected" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
+                                                <Button fx:id="fill_tool" layoutX="35.0" layoutY="31.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#fillShape" prefHeight="38.0" prefWidth="38.0" style="-fx-background-color: white; -fx-border-color: #4682B4; -fx-background-radius: 5; -fx-border-radius: 5; -fx-border-width: 1.5;">
                                                    <graphic>
                                                       <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
