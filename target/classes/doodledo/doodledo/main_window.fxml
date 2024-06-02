@@ -19,14 +19,15 @@
                 <Button fx:id="export_pdf_button" mnemonicParsing="false" onAction="#exportPDFAction" text="Export PDF" />
                 <Button fx:id="brushTool" mnemonicParsing="false" onAction="#brushSelected" prefHeight="26.0" prefWidth="71.0" text="Brush" />
                 <Button fx:id="eraserTool" mnemonicParsing="false" onAction="#eraserSelected" text="Eraser" />
-                <ColorPicker fx:id="colorPalette" prefHeight="26.0" prefWidth="114.0" />
+                <ColorPicker fx:id="colorPalette" prefHeight="26.0" prefWidth="105.0" />
                 <Slider fx:id="brushWidth" blockIncrement="1.0" majorTickUnit="3.0" max="20.0" min="1.0" minorTickCount="1" prefHeight="16.0" prefWidth="211.0" value="5.0" />
                 <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearCanvas" text="Clear" />
                 <Button fx:id="undoButton" layoutX="515.0" layoutY="11.0" mnemonicParsing="false" onAction="#undoAction" text="Undo" />
                 <Button fx:id="redoButton" layoutX="562.0" layoutY="11.0" mnemonicParsing="false" onAction="#redoAction" text="Redo" />
                 <Button fx:id="addImg" mnemonicParsing="false" onAction="#addImage" text="Add Image" />
                 <Button fx:id="addTxt" mnemonicParsing="false" onAction="#addText" text="Add Text" />
-            <ComboBox fx:id="shape_dropdown" onAction="#selectShape" prefHeight="26.0" prefWidth="116.0" promptText="Shapes" />
+            <ComboBox fx:id="shape_dropdown" onAction="#selectShape" prefHeight="26.0" prefWidth="81.0" promptText="Shapes" />
+            <Button fx:id="fillButton" mnemonicParsing="false" onAction="#fillShape" prefHeight="25.0" prefWidth="48.0" text="Fill" />
             </items>
         </ToolBar>
         <TextArea fx:id="inputText" visible="false" wrapText="true" />

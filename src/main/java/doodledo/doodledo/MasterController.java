@@ -233,5 +233,9 @@ public class MasterController implements Initializable {
         toolbarHandler.selectShape(selectedShape, selectedColor, selectedWidth);
     }
 
+    @FXML
+    public void fillShape() {
+        toolbarHandler.fillShape();
+    }
 
 }
