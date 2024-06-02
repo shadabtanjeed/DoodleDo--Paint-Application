@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1471.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doodledo.doodledo.MasterController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="728.0" prefWidth="1426.0" style="-fx-background-color: #e6e6e6;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doodledo.doodledo.MasterController">
     <children>
-        <ToolBar layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="1414.0">
+        <ToolBar layoutX="14.0" layoutY="22.0" prefHeight="51.0" prefWidth="1396.0">
             <items>
                 <ComboBox fx:id="export_context_menu" prefHeight="26.0" prefWidth="97.0" promptText="Export As" />
                 <Button fx:id="save_button" mnemonicParsing="false" onAction="#saveSelected" text="Save" />
@@ -31,7 +31,7 @@
             </items>
         </ToolBar>
         <TextArea fx:id="inputText" visible="false" wrapText="true" />
-        <Canvas fx:id="canvas" height="1080.0" layoutY="50.0" width="1920.0" />
+        <Canvas fx:id="canvas" height="619.0" layoutX="13.0" layoutY="96.0" width="1398.0" />
         <Text fx:id="hoveringText" visible="false" />
     </children>
 </AnchorPane>
