@@ -9,8 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.shape.*;
 
 public class ToolbarHandler {
     private final WindowController windowController;
@@ -26,6 +25,7 @@ public class ToolbarHandler {
     private Color selectedColor;
     private MasterController masterController;
     private RadialGradient brushGradient;
+    private boolean highlighterSelected = false;
 
     public ToolbarHandler(Canvas canvas, GraphicsContext brush, WindowController windowController, MasterController masterController) {
         this.canvas = canvas;
@@ -87,7 +87,14 @@ public class ToolbarHandler {
                 }
             }
 
-            if (!softBrushSelected) {
+            if (highlighterSelected) {
+                brush.setLineWidth(masterController.getBrushWidth());
+                brush.setStroke(selectedColor);
+                brush.setLineCap(StrokeLineCap.BUTT);
+                brush.strokeLine(lastX, lastY, currentX, currentY);
+            }
+
+            if (!softBrushSelected && !highlighterSelected) {
                 brush.lineTo(currentX, currentY);
                 brush.stroke();
             }
@@ -141,6 +148,9 @@ public class ToolbarHandler {
     }
 
     public void selectSoftBrush(Color value) {
+        softBrushSelected = true;
+        highlighterSelected = false;
+
         softBrush.setFill(createRadialGradient(value));
         softBrushSelected = true;
         softBrush.setRadius(masterController.getBrushWidth() / 2);
@@ -153,5 +163,11 @@ public class ToolbarHandler {
 
     private double lerp(double start, double end, double t) {
         return start + t * (end - start);
+    }
+
+    public void selectHighLighter(Color value) {
+        highlighterSelected = true;
+        selectedColor = Color.color(value.getRed(), value.getGreen(), value.getBlue(), 0.4);
+        softBrushSelected = false;
     }
 }

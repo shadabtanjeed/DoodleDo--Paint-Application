@@ -127,5 +127,10 @@ public class MasterController implements Initializable {
         return canvas;
     }
 
+    @FXML
+    public void HighLighterSelected() {
+        toolbarHandler.selectHighLighter(colorPalette.getValue());
+    }
+
 
 }
