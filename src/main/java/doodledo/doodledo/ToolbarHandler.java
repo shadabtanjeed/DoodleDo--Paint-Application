@@ -1,5 +1,6 @@
 package doodledo.doodledo;
 
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -8,6 +9,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.FileChooser;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,17 +25,35 @@ public class ToolbarHandler {
     private Color selectedColor;
     private MasterController masterController;
     private String textToDraw = null;
-
+    private Text hoveringText;
+    private double toolbarHeight;
 
     public Color canvasColor;
     public Color eraserColor;
 
-    public ToolbarHandler(Canvas canvas, GraphicsContext brush, WindowController windowController, MasterController masterController) {
+    public ToolbarHandler(Canvas canvas, GraphicsContext brush, WindowController windowController, MasterController masterController, Text hoveringText) {
         this.canvas = canvas;
         this.brush = brush;
         this.windowController = windowController;
         this.masterController = masterController;
+        this.hoveringText = hoveringText;
+        this.toolbarHeight = masterController.getToolbarHeight();
         setupCanvasHandlers();
+
+
+        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, (e) -> {
+            if (textToDraw != null && e.getY() > toolbarHeight) {
+                double fontSize = 10 + 3 * ( masterController.getBrushWidth() );
+                hoveringText.setFont(new Font("Verdana", fontSize));
+                hoveringText.setFill(selectedColor);
+                hoveringText.setX(e.getX());
+                hoveringText.setY(e.getY() + 2 * fontSize);
+                hoveringText.setText(textToDraw);
+                hoveringText.setVisible(true);
+            } else {
+                hoveringText.setVisible(false);
+            }
+        });
     }
 
     private void setupCanvasHandlers() {
@@ -48,6 +69,7 @@ public class ToolbarHandler {
         });
 
         canvas.addEventHandler(MouseEvent.MOUSE_DRAGGED, (e) -> {
+
             brush.lineTo(e.getX(), e.getY());
             brush.stroke();
             lastX = e.getX();
@@ -59,27 +81,14 @@ public class ToolbarHandler {
             WindowController.setIsSaved(false);
         });
 
-        canvas.addEventHandler(MouseEvent.MOUSE_MOVED, (e) -> {
-            // Clear the previous temporary text
-            if (textToDraw != null) {
-                masterController.undoAction();
-                // Save the state before drawing the new temporary text
-                masterController.saveCurrentState();
-                brush.setFont(new Font("Verdana", 10 + 3 * ( masterController.getBrushWidth() ) ));
-                brush.setFill(selectedColor);
-                brush.fillText(textToDraw, e.getX(), e.getY());
-            }
-        });
-
         canvas.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
             if (textToDraw != null) {
-                masterController.undoAction();
-
                 brush.setFont(new Font("Verdana", 10 + 3 * ( masterController.getBrushWidth() ) ));
                 brush.setFill(selectedColor);
                 brush.fillText(textToDraw, e.getX(), e.getY());
 
                 textToDraw = null;
+                hoveringText.setVisible(false);
                 masterController.saveCurrentState();
             }
         });

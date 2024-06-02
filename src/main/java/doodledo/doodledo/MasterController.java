@@ -18,6 +18,8 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.text.Text;
+
 import java.util.Optional;
 
 
@@ -40,6 +42,9 @@ public class MasterController implements Initializable {
 
     @FXML
     private TextArea inputText;
+
+    @FXML
+    private Text hoveringText;
 
     public double getBrushWidth() {
         return brushWidth.getValue();
@@ -76,7 +81,7 @@ public class MasterController implements Initializable {
         ObservableList<String> export_dropdown_list = FXCollections.observableArrayList("Image", "PDF");
         export_context_menu.setItems(export_dropdown_list);
         windowController = new WindowController(); // Create a new WindowController instance
-        toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), windowController, this); // Pass the WindowController and MasterController instance to ToolbarHandler
+        toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), windowController, this, hoveringText);
         stateHandler = new StateHandler(canvas, canvas.getGraphicsContext2D());
         toolbarHandler.setCanvasColor(initCanvasColor);
         stateHandler.saveCurrentState();
@@ -88,6 +93,9 @@ public class MasterController implements Initializable {
 
         colorPalette.setValue(initPenColor);
         toolbarHandler.updateSelectedColor(initPenColor);
+
+        hoveringText = new Text();
+        hoveringText.setVisible(false);
 
         // Add action listener to export_context_menu
         export_context_menu.getSelectionModel().selectedItemProperty().addListener((Observable observable) -> {
@@ -135,6 +143,8 @@ public class MasterController implements Initializable {
     public void exportPDFAction() {
         FileHandler.exportCanvasToPdf(canvas);
     }
+
+    public double getToolbarHeight(){return export_context_menu.getHeight();}
 
     Canvas getCanvas() {
         return canvas;
