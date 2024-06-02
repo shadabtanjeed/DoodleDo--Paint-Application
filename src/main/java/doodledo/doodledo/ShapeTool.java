@@ -33,17 +33,20 @@ public class ShapeTool extends Tool {
         double endY = event.getY();
 
         // Clear the previous temporary shape
-        tempGraphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        //tempGraphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         // Set the stroke color and width
         tempGraphicsContext.setStroke(strokeColor);
         tempGraphicsContext.setLineWidth(strokeWidth);
 
         // Draw the temporary shape on the temporary graphics context
-        drawShape(tempGraphicsContext, startX, startY, endX, endY);
+        //drawShape(tempGraphicsContext, startX, startY, endX, endY);
     }
 
     @Override
     public void onMouseReleased(MouseEvent event) {
+
+        tempGraphicsContext.setStroke(strokeColor);
+        tempGraphicsContext.setLineWidth(strokeWidth);
         // Draw the final shape on the main graphics context
         drawShape(graphicsContext, startX, startY, event.getX(), event.getY());
     }

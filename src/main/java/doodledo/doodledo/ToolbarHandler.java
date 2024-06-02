@@ -98,6 +98,9 @@ public class ToolbarHandler {
     public void selectEraser() {
         eraserSelected = true;
         selectedColor = eraserColor;
+        brushSelected = false;
+        shapeSelected = false;
+        currentTool = null;
     }
 
     public void clearCanvas() {
