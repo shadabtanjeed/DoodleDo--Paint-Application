@@ -1,6 +1,5 @@
 package doodledo.doodledo;
 
-
 import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.collections.FXCollections;
@@ -10,14 +9,21 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.text.Text;
+
+import java.util.Optional;
 
 import static doodledo.doodledo.CanvasInitController.globalCanvasColor;
-
 
 public class MasterController implements Initializable {
 
@@ -36,16 +42,37 @@ public class MasterController implements Initializable {
     private Color initBrushColor = Color.BLUE;
     private Color initCanvasColor = globalCanvasColor;
 
+    @FXML
+    private TextArea inputText;
+
+    @FXML
+    private Text hoveringText;
 
     public double getBrushWidth() {
         return brushWidth.getValue();
     }
 
-
     public void saveCurrentState() {
+        double x = canvas.getWidth();
+        double y = canvas.getHeight();
         stateHandler.saveCurrentState();
     }
 
+    public void addImage() {
+        toolbarHandler.addImage();
+    }
+
+    @FXML
+    public void addText() {
+        // prompt the user for text
+        TextInputDialog dialog = new TextInputDialog("Enter text");
+        dialog.setTitle("Add Text");
+        dialog.setHeaderText("Enter the text you want to add to the canvas:");
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(text -> {
+            toolbarHandler.addText(text);
+        });
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -67,6 +94,9 @@ public class MasterController implements Initializable {
 
         colorPalette.setValue(initBrushColor);
         toolbarHandler.updateSelectedColor(initBrushColor);
+
+        hoveringText = new Text();
+        hoveringText.setVisible(false);
 
         // Add action listener to export_context_menu
         export_context_menu.getSelectionModel().selectedItemProperty().addListener((Observable observable) -> {
@@ -118,9 +148,12 @@ public class MasterController implements Initializable {
         FileHandler.exportCanvasToPdf(canvas);
     }
 
+    public double getToolbarHeight() {
+        return export_context_menu.getHeight();
+    }
+
     public Canvas getCanvas() {
         return canvas;
     }
-
 
 }

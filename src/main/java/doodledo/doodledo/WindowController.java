@@ -5,6 +5,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.fxml.Initializable;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.Optional;
@@ -67,7 +68,10 @@ public class WindowController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), this, new MasterController());
+        Text hoveringText = new Text();
+        hoveringText.setVisible(false);
+        toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), this, new MasterController(), hoveringText);
+
         stateHandler = new StateHandler(canvas, canvas.getGraphicsContext2D());
         stateHandler.saveCurrentState();
     }

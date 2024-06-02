@@ -32,8 +32,7 @@ first, then notify other members to pull the changes.
 
 ## Monke
 
-1. Canvas bg color
-2. Eraser Fix
+1. Shapes
 
 ## Shadab
 
