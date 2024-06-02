@@ -80,7 +80,8 @@ public class MasterController implements Initializable {
         ObservableList<String> export_dropdown_list = FXCollections.observableArrayList("Image", "PDF");
         export_context_menu.setItems(export_dropdown_list);
         windowController = new WindowController(); // Create a new WindowController instance
-        this.toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), windowController, this, hoveringText);
+        this.toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), windowController, this,
+                hoveringText);
         stateHandler = new StateHandler(canvas, canvas.getGraphicsContext2D());
         stateHandler.saveCurrentState();
 
@@ -95,6 +96,28 @@ public class MasterController implements Initializable {
 
         colorPalette.setValue(initBrushColor);
         toolbarHandler.updateSelectedColor(initBrushColor);
+
+        // listener for color palette
+        colorPalette.valueProperty().addListener((observable, oldValue, newValue) -> {
+            toolbarHandler.updateSelectedColor(newValue);
+            if (toolbarHandler.softBrushSelected) {
+                toolbarHandler.selectSoftBrush(newValue);
+            }
+            if (toolbarHandler.highlighterSelected) {
+                toolbarHandler.selectHighLighter(newValue);
+            }
+        });
+
+        // Add a change listener to the brushWidth
+        brushWidth.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (toolbarHandler.softBrushSelected) {
+                toolbarHandler.selectSoftBrush(colorPalette.getValue());
+            }
+
+            if (toolbarHandler.highlighterSelected) {
+                toolbarHandler.selectHighLighter(colorPalette.getValue());
+            }
+        });
 
         hoveringText = new Text();
         hoveringText.setVisible(false);
@@ -122,6 +145,11 @@ public class MasterController implements Initializable {
     @FXML
     public void eraserSelected() {
         toolbarHandler.selectEraser();
+    }
+
+    @FXML
+    public void softBrushSelected() {
+        toolbarHandler.selectSoftBrush(colorPalette.getValue());
     }
 
     @FXML
@@ -155,6 +183,11 @@ public class MasterController implements Initializable {
 
     public Canvas getCanvas() {
         return canvas;
+    }
+
+    @FXML
+    public void HighLighterSelected() {
+        toolbarHandler.selectHighLighter(colorPalette.getValue());
     }
 
 }

@@ -45,11 +45,19 @@ public class WindowController implements Initializable {
                 // exits the program
                 System.exit(0);
                 return true;
-            } else return result.get() == cancel_alert_button;
+            } else
+                return result.get() == cancel_alert_button;
         }
         return false;
     }
 
+    public static void setIsSaved(boolean b) {
+        if (b) {
+            System.out.println("Saved");
+        } else {
+            // System.out.println("Not Saved");
+        }
+    }
 
     public static Canvas getCanvas() {
         return canvas;
@@ -59,12 +67,12 @@ public class WindowController implements Initializable {
         WindowController.canvas = canvas;
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Text hoveringText = new Text();
         hoveringText.setVisible(false);
-        toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), this, new MasterController(), hoveringText);
+        toolbarHandler = new ToolbarHandler(canvas, canvas.getGraphicsContext2D(), this, new MasterController(),
+                hoveringText);
 
         stateHandler = new StateHandler(canvas, canvas.getGraphicsContext2D());
         stateHandler.saveCurrentState();
