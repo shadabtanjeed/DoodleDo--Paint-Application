@@ -8,14 +8,15 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="350.0" style="-fx-background-color: #ecf5f9;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="doodledo.doodledo.CanvasInitController">
     <children>
-        <ColorPicker fx:id="canvasColorSelector" layoutX="52.0" layoutY="91.0" prefHeight="32.0" prefWidth="106.0" style="-fx-background-color: #4682B4; -fx-background-radius: 15;" styleClass="custom-color-picker" stylesheets="@style.css" />
-        <Button fx:id="continueToCanvas" layoutX="193.0" layoutY="91.0" mnemonicParsing="false" onAction="#continueToMainWindow" prefHeight="32.0" prefWidth="106.0" style="-fx-background-color: #4682B4; -fx-background-radius: 15;" text="Continue" textFill="WHITE">
-         <font>
-            <Font name="Montserrat SemiBold" size="12.0" />
-         </font></Button>
-        <Label alignment="CENTER" layoutX="38.0" layoutY="22.0" prefHeight="40.0" prefWidth="274.0" text="What canvas color would you like?">
+        <ColorPicker fx:id="canvasColorSelector" layoutX="46.0" layoutY="91.0" prefHeight="32.0" prefWidth="91.0" style="-fx-background-color: #4682B4; -fx-background-radius: 15;" styleClass="custom-color-picker" stylesheets="@style.css" />
+        <Button fx:id="continueToCanvas" layoutX="205.0" layoutY="91.0" mnemonicParsing="false" onAction="#continueToMainWindow" prefHeight="32.0" prefWidth="106.0" style="-fx-background-color: #4682B4; -fx-background-radius: 15;" text="Continue" textFill="WHITE">
             <font>
                 <Font name="Montserrat SemiBold" size="12.0" />
+            </font>
+        </Button>
+        <Label alignment="CENTER" layoutX="38.0" layoutY="22.0" prefHeight="40.0" prefWidth="274.0" text="What canvas color would you like?">
+            <font>
+                <Font name="Montserrat SemiBold" size="15.0" />
             </font>
         </Label>
     </children>
