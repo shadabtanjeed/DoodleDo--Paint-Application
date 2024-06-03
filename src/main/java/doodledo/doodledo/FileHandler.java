@@ -32,9 +32,9 @@ public class FileHandler {
         FileChooser imageSaver = new FileChooser();
         imageSaver.setTitle("Save Image File");
         imageSaver.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG"),
-                new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG"),
-                new FileChooser.ExtensionFilter("JPEG files (*.jpeg)", "*.JPEG")
+//                new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG"),
+//                new FileChooser.ExtensionFilter("JPEG files (*.jpeg)", "*.JPEG"),
+                new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG")
         );
 
 
