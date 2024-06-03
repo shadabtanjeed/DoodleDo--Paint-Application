@@ -87,7 +87,7 @@ public class FileHandler {
 
         PdfWriter writer = new PdfWriter(new FileOutputStream(pdfPath));
         // Convert canvas size from pixels to points
-        float widthInPoints = (float) canvas.getWidth() * 72 / 96; // 96 is the DPI for most screens
+        float widthInPoints = (float) canvas.getWidth() * 72 / 96;
         float heightInPoints = (float) canvas.getHeight() * 72 / 96;
         PageSize pageSize = new PageSize(widthInPoints, heightInPoints);
         PdfDocument pdfDocument = new PdfDocument(writer);
