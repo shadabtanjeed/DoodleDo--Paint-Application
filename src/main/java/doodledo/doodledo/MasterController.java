@@ -261,6 +261,9 @@ public class MasterController implements Initializable {
         Tooltip exportInsertImage = new Tooltip("Insert image ");
         Tooltip.install(addImg, exportInsertImage);
 
+        resetButtonStyles();
+        brushTool.setStyle("-fx-background-color: #DEE6C4; -fx-border-color: #4682B4; -fx-border-radius: 5; -fx-border-width: 1.5;");
+
 
     }
 
